@@ -1,0 +1,23 @@
+NAME                                                    READY   STATUS    RESTARTS   AGE
+pod/rec-redis-eastus-0                                  2/2     Running   0          140m
+pod/rec-redis-eastus-1                                  2/2     Running   0          139m
+pod/rec-redis-eastus-2                                  2/2     Running   0          137m
+pod/rec-redis-eastus-services-rigger-56d57cf488-jmc2j   1/1     Running   0          140m
+pod/redis-enterprise-operator-87b85f858-5ctf7           2/2     Running   0          142m
+
+NAME                            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
+service/admission               ClusterIP   10.0.213.183   <none>        443/TCP             142m
+service/rec-redis-eastus        ClusterIP   10.0.97.225    <none>        9443/TCP,8001/TCP   140m
+service/rec-redis-eastus-prom   ClusterIP   None           <none>        8070/TCP            140m
+service/rec-redis-eastus-ui     ClusterIP   10.0.217.255   <none>        8443/TCP            140m
+
+NAME                                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/rec-redis-eastus-services-rigger   1/1     1            1           140m
+deployment.apps/redis-enterprise-operator          1/1     1            1           142m
+
+NAME                                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/rec-redis-eastus-services-rigger-56d57cf488   1         1         1       140m
+replicaset.apps/redis-enterprise-operator-87b85f858           1         1         1       142m
+
+NAME                                READY   AGE
+statefulset.apps/rec-redis-eastus   3/3     140m

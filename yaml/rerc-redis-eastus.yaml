@@ -1,0 +1,11 @@
+apiVersion: app.redislabs.com/v1alpha1
+kind: RedisEnterpriseRemoteCluster
+metadata:
+  name: redis-eastus
+spec:
+  recName: redis-eastus
+  recNamespace: rec
+  apiFqdnUrl: api.redis-eastus.demo.umnikov.com
+  dbFqdnSuffix: -db.redis-eastus.demo.umnikov.com
+  secretName: redis-enterprise-redis-eastus
+

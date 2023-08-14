@@ -1,0 +1,11 @@
+apiVersion: app.redislabs.com/v1alpha1
+kind: RedisEnterpriseRemoteCluster
+metadata:
+  name: redis-canadacentral
+spec:
+  recName: redis-canadacentral
+  recNamespace: rec
+  apiFqdnUrl: api.redis-canadacentral.demo.umnikov.com
+  dbFqdnSuffix: -db.redis-canadacentral.demo.umnikov.com
+  secretName: redis-enterprise-redis-canadacentral
+

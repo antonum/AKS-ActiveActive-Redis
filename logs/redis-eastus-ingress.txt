@@ -1,0 +1,46 @@
+NAMESPACE   NAME               CLASS    HOSTS                               ADDRESS          PORTS   AGE
+rec         rec-redis-eastus   <none>   api.redis-eastus.demo.umnikov.com   20.241.188.189   80      140m
+apiVersion: v1
+items:
+- apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    creationTimestamp: "2023-08-14T13:30:15Z"
+    generation: 1
+    labels:
+      app: redis-enterprise
+      redis.io/cluster: rec-redis-eastus
+    name: rec-redis-eastus
+    namespace: rec
+    ownerReferences:
+    - apiVersion: app.redislabs.com/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: RedisEnterpriseCluster
+      name: rec-redis-eastus
+      uid: 0eee9d5d-8089-4aba-8514-7e73242e3494
+    resourceVersion: "2743"
+    uid: 6463bf76-d8e1-491e-b01a-a300cc778a03
+  spec:
+    rules:
+    - host: api.redis-eastus.demo.umnikov.com
+      http:
+        paths:
+        - backend:
+            service:
+              name: rec-redis-eastus
+              port:
+                name: api
+          path: /
+          pathType: ImplementationSpecific
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 20.241.188.189
+kind: List
+metadata:
+  resourceVersion: ""

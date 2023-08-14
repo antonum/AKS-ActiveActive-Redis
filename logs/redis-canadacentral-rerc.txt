@@ -1,0 +1,58 @@
+NAMESPACE   NAME                  STATUS   SPEC STATUS   LOCAL
+rec         redis-canadacentral   Active   Valid         false
+rec         redis-eastus          Active   Valid         false
+apiVersion: v1
+items:
+- apiVersion: app.redislabs.com/v1alpha1
+  kind: RedisEnterpriseRemoteCluster
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"app.redislabs.com/v1alpha1","kind":"RedisEnterpriseRemoteCluster","metadata":{"annotations":{},"name":"redis-canadacentral","namespace":"rec"},"spec":{"apiFqdnUrl":"api.redis-canadacentral.demo.umnikov.com","dbFqdnSuffix":"-db.redis-canadacentral.demo.umnikov.com","recName":"redis-canadacentral","recNamespace":"rec","secretName":"redis-enterprise-redis-canadacentral"}}
+    creationTimestamp: "2023-08-14T13:49:07Z"
+    finalizers:
+    - redis.io/rerc-finalizer
+    generation: 1
+    name: redis-canadacentral
+    namespace: rec
+    resourceVersion: "7560"
+    uid: d314b8cc-d2f9-4c7d-8bab-a42f176fc43d
+  spec:
+    apiFqdnUrl: api.redis-canadacentral.demo.umnikov.com
+    dbFqdnSuffix: -db.redis-canadacentral.demo.umnikov.com
+    recName: redis-canadacentral
+    recNamespace: rec
+    secretName: redis-enterprise-redis-canadacentral
+  status:
+    local: false
+    observedGeneration: 1
+    specStatus: Valid
+    status: Active
+- apiVersion: app.redislabs.com/v1alpha1
+  kind: RedisEnterpriseRemoteCluster
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"app.redislabs.com/v1alpha1","kind":"RedisEnterpriseRemoteCluster","metadata":{"annotations":{},"name":"redis-eastus","namespace":"rec"},"spec":{"apiFqdnUrl":"api.redis-eastus.demo.umnikov.com","dbFqdnSuffix":"-db.redis-eastus.demo.umnikov.com","recName":"redis-eastus","recNamespace":"rec","secretName":"redis-enterprise-redis-eastus"}}
+    creationTimestamp: "2023-08-14T15:16:39Z"
+    finalizers:
+    - redis.io/rerc-finalizer
+    generation: 1
+    name: redis-eastus
+    namespace: rec
+    resourceVersion: "29281"
+    uid: 9b965c65-0682-48da-b0c7-e24cc6089d94
+  spec:
+    apiFqdnUrl: api.redis-eastus.demo.umnikov.com
+    dbFqdnSuffix: -db.redis-eastus.demo.umnikov.com
+    recName: redis-eastus
+    recNamespace: rec
+    secretName: redis-enterprise-redis-eastus
+  status:
+    local: false
+    observedGeneration: 1
+    specStatus: Valid
+    status: Active
+kind: List
+metadata:
+  resourceVersion: ""

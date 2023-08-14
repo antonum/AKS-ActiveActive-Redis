@@ -1,0 +1,23 @@
+NAME                                                           READY   STATUS    RESTARTS   AGE
+pod/rec-redis-canadacentral-0                                  2/2     Running   0          141m
+pod/rec-redis-canadacentral-1                                  2/2     Running   0          140m
+pod/rec-redis-canadacentral-2                                  2/2     Running   0          138m
+pod/rec-redis-canadacentral-services-rigger-5dd4fbf778-gpmrq   1/1     Running   0          141m
+pod/redis-enterprise-operator-87b85f858-f9pvm                  2/2     Running   0          141m
+
+NAME                                   TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
+service/admission                      ClusterIP   10.0.101.93    <none>        443/TCP             141m
+service/rec-redis-canadacentral        ClusterIP   10.0.70.76     <none>        9443/TCP,8001/TCP   141m
+service/rec-redis-canadacentral-prom   ClusterIP   None           <none>        8070/TCP            141m
+service/rec-redis-canadacentral-ui     ClusterIP   10.0.104.219   <none>        8443/TCP            141m
+
+NAME                                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/rec-redis-canadacentral-services-rigger   1/1     1            1           141m
+deployment.apps/redis-enterprise-operator                 1/1     1            1           141m
+
+NAME                                                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/rec-redis-canadacentral-services-rigger-5dd4fbf778   1         1         1       141m
+replicaset.apps/redis-enterprise-operator-87b85f858                  1         1         1       141m
+
+NAME                                       READY   AGE
+statefulset.apps/rec-redis-canadacentral   3/3     141m

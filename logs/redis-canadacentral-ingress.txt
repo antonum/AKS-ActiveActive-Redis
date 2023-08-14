@@ -1,0 +1,46 @@
+NAMESPACE   NAME                      CLASS    HOSTS                                      ADDRESS          PORTS   AGE
+rec         rec-redis-canadacentral   <none>   api.redis-canadacentral.demo.umnikov.com   20.200.119.104   80      141m
+apiVersion: v1
+items:
+- apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    creationTimestamp: "2023-08-14T13:29:28Z"
+    generation: 1
+    labels:
+      app: redis-enterprise
+      redis.io/cluster: rec-redis-canadacentral
+    name: rec-redis-canadacentral
+    namespace: rec
+    ownerReferences:
+    - apiVersion: app.redislabs.com/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: RedisEnterpriseCluster
+      name: rec-redis-canadacentral
+      uid: 4be853c1-cb0b-4e8e-850d-c3e5dc2128f5
+    resourceVersion: "2696"
+    uid: 3d75da44-f1b2-42ec-881e-eac8bfde3bcd
+  spec:
+    rules:
+    - host: api.redis-canadacentral.demo.umnikov.com
+      http:
+        paths:
+        - backend:
+            service:
+              name: rec-redis-canadacentral
+              port:
+                name: api
+          path: /
+          pathType: ImplementationSpecific
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 20.200.119.104
+kind: List
+metadata:
+  resourceVersion: ""
