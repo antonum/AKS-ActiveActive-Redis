@@ -1,0 +1,42 @@
+NAME         STATUS   SPEC STATUS   LINKED REDBS   REPLICATION STATUS
+crdb-anton   active   Valid                        up
+Name:         crdb-anton
+Namespace:    rec
+Labels:       <none>
+Annotations:  redis.io/certs-latest: {}
+              redis.io/certs-local: {}
+              redis.io/last-reaadb:
+                {"participatingClusters":[{"name":"redis-eastus"},{"name":"redis-canadacentral"}],"globalConfigurations":{"memorySize":"200MB","shardCount...
+              redis.io/rerc-local: 7664
+API Version:  app.redislabs.com/v1alpha1
+Kind:         RedisEnterpriseActiveActiveDatabase
+Metadata:
+  Creation Timestamp:  2023-08-18T20:08:54Z
+  Finalizers:
+    redis.io/reaadb-finalizer
+  Generation:        1
+  Resource Version:  10938
+  UID:               d93cf1a0-9076-4a8b-a6ff-cc4a7cce0621
+Spec:
+  Global Configurations:
+    Memory Size:  200MB
+    Persistence:  aofEverySecond
+    Replication:  true
+    Shard Count:  1
+  Participating Clusters:
+    Name:  redis-eastus
+    Name:  redis-canadacentral
+Status:
+  GUID:           24f1b96b-4415-4e6a-a667-911916d4112d
+  Last Task UID:  521518e4-c844-45ff-8fc6-ae55238023d0
+  Participating Clusters:
+    Id:                      2
+    Name:                    redis-canadacentral
+    Id:                      1
+    Name:                    redis-eastus
+    Replication Status:      up
+  Redis Enterprise Cluster:  rec-redis-canadacentral
+  Replication Status:        up
+  Spec Status:               Valid
+  Status:                    active
+Events:                      <none>

@@ -1,5 +1,5 @@
 NAMESPACE   NAME               NODES   VERSION    STATE     SPEC STATUS   LICENSE STATE   SHARDS LIMIT   LICENSE EXPIRATION DATE   AGE
-rec         rec-redis-eastus   3       6.4.2-94   Running   Valid         Valid           4              2023-09-13T13:31:27Z      140m
+rec         rec-redis-eastus   3       6.4.2-94   Running   Valid         Valid           4              2023-09-17T19:37:42Z      68m
 apiVersion: v1
 items:
 - apiVersion: app.redislabs.com/v1
@@ -7,20 +7,20 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"app.redislabs.com/v1","kind":"RedisEnterpriseCluster","metadata":{"annotations":{},"name":"rec-redis-eastus","namespace":"rec"},"spec":{"nodes":3,"redisEnterpriseNodeResources":{"limits":{"cpu":"2000m","memory":"8Gi"},"requests":{"cpu":"2000m","memory":"8Gi"}}}}
+        {"apiVersion":"app.redislabs.com/v1","kind":"RedisEnterpriseCluster","metadata":{"annotations":{},"name":"rec-redis-eastus","namespace":"rec"},"spec":{"nodes":3,"redisEnterpriseNodeResources":{"limits":{"cpu":"1500m","memory":"4Gi"},"requests":{"cpu":"1000m","memory":"8Gi"}}}}
       operator_version: 6.4.2-8
       redis.io/pvc_extra_labels: "null"
-    creationTimestamp: "2023-08-14T13:30:12Z"
+    creationTimestamp: "2023-08-18T19:36:26Z"
     finalizers:
     - redbfinalizer.redisenterpriseclusters.app.redislabs.com
     - stsfinalizer.redisenterprisecluster.app.redislabs.com
     - recpodfinalizer.redisenterprisecluster.app.redislabs.com
     - reaadbfinalizer.redisenterprisecluster.app.redislabs.com
-    generation: 3
+    generation: 5
     name: rec-redis-eastus
     namespace: rec
-    resourceVersion: "3929"
-    uid: 0eee9d5d-8089-4aba-8514-7e73242e3494
+    resourceVersion: "5359"
+    uid: 0169bb6e-c9e6-49db-bb51-bc3f8f11ce6e
   spec:
     clusterCredentialSecretName: rec-redis-eastus
     clusterCredentialSecretRole: ""
@@ -30,9 +30,8 @@ items:
       apiFqdnUrl: api.redis-eastus.demo.umnikov.com
       dbFqdnSuffix: -db.redis-eastus.demo.umnikov.com
       ingressAnnotations:
-        kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        haproxy-ingress.github.io/ssl-passthrough: "true"
+        kubernetes.io/ingress.class: haproxy
       method: ingress
     nodes: 3
     persistentSpec:
@@ -48,10 +47,10 @@ items:
       versionTag: 6.4.2-94
     redisEnterpriseNodeResources:
       limits:
-        cpu: "2"
-        memory: 8Gi
+        cpu: 1500m
+        memory: 4Gi
       requests:
-        cpu: "2"
+        cpu: "1"
         memory: 8Gi
     serviceAccountName: rec-redis-eastus
     services:
@@ -64,15 +63,15 @@ items:
     username: demo@redis.com
   status:
     bundledDatabaseVersions:
-    - dbType: redis
-      version: 6.0.17
     - dbType: memcached
       version: 1.4.17
     - dbType: redis
+      version: 6.0.17
+    - dbType: redis
       version: 6.2.10
     licenseStatus:
-      activationDate: "2023-08-14T13:31:27Z"
-      expirationDate: "2023-09-13T13:31:27Z"
+      activationDate: "2023-08-18T19:37:42Z"
+      expirationDate: "2023-09-17T19:37:42Z"
       licenseState: Valid
       shardsLimit: 4
     managedAPIs:

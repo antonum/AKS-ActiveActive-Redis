@@ -3,7 +3,7 @@ kind: RedisEnterpriseRemoteCluster
 metadata:
   name: redis-eastus
 spec:
-  recName: redis-eastus
+  recName: rec-redis-eastus
   recNamespace: rec
   apiFqdnUrl: api.redis-eastus.demo.umnikov.com
   dbFqdnSuffix: -db.redis-eastus.demo.umnikov.com

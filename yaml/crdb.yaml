@@ -7,6 +7,8 @@ spec:
     #databaseSecretName: crdb-anton
     memorySize: 200MB
     shardCount: 1
+    replication: true
+    persistence: "aofEverySecond"
   participatingClusters:
       - name: redis-eastus
       - name: redis-canadacentral

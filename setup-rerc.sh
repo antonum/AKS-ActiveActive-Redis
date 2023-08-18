@@ -2,6 +2,7 @@ RESOURCE_GROUP=anton-rg-aa-aks
 CLUSTER1=redis-eastus
 CLUSTER2=redis-canadacentral
 DNS_ZONE=demo.umnikov.com
+#DNS_ZONE=sademo.umnikov.com
 # Resource Group zone where DNS is defined
 DNS_RESOURCE_GROUP=anton-rg
 NS=rec
@@ -47,7 +48,7 @@ kind: RedisEnterpriseRemoteCluster
 metadata:
   name: $CLUSTER
 spec:
-  recName: $CLUSTER
+  recName: rec-$CLUSTER
   recNamespace: $NS
   apiFqdnUrl: api.$CLUSTER.$DNS_ZONE
   dbFqdnSuffix: -db.$CLUSTER.$DNS_ZONE
@@ -76,6 +77,8 @@ spec:
     #databaseSecretName: crdb-anton
     memorySize: 200MB
     shardCount: 1
+    replication: true
+    persistence: "aofEverySecond"
   participatingClusters:
       - name: $CLUSTER1
       - name: $CLUSTER2

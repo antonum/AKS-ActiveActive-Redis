@@ -1,5 +1,5 @@
 NAMESPACE   NAME                      NODES   VERSION    STATE     SPEC STATUS   LICENSE STATE   SHARDS LIMIT   LICENSE EXPIRATION DATE   AGE
-rec         rec-redis-canadacentral   3       6.4.2-94   Running   Valid         Valid           4              2023-09-13T13:30:28Z      141m
+rec         rec-redis-canadacentral   3       6.4.2-94   Running   Valid         Valid           4              2023-09-17T19:38:24Z      68m
 apiVersion: v1
 items:
 - apiVersion: app.redislabs.com/v1
@@ -7,10 +7,10 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"app.redislabs.com/v1","kind":"RedisEnterpriseCluster","metadata":{"annotations":{},"name":"rec-redis-canadacentral","namespace":"rec"},"spec":{"nodes":3,"redisEnterpriseNodeResources":{"limits":{"cpu":"2000m","memory":"8Gi"},"requests":{"cpu":"2000m","memory":"8Gi"}}}}
+        {"apiVersion":"app.redislabs.com/v1","kind":"RedisEnterpriseCluster","metadata":{"annotations":{},"name":"rec-redis-canadacentral","namespace":"rec"},"spec":{"nodes":3,"redisEnterpriseNodeResources":{"limits":{"cpu":"1500m","memory":"4Gi"},"requests":{"cpu":"1000m","memory":"8Gi"}}}}
       operator_version: 6.4.2-8
       redis.io/pvc_extra_labels: "null"
-    creationTimestamp: "2023-08-14T13:29:19Z"
+    creationTimestamp: "2023-08-18T19:36:51Z"
     finalizers:
     - redbfinalizer.redisenterpriseclusters.app.redislabs.com
     - stsfinalizer.redisenterprisecluster.app.redislabs.com
@@ -19,8 +19,8 @@ items:
     generation: 5
     name: rec-redis-canadacentral
     namespace: rec
-    resourceVersion: "3723"
-    uid: 4be853c1-cb0b-4e8e-850d-c3e5dc2128f5
+    resourceVersion: "5328"
+    uid: 55154cc4-1b04-4ae3-978c-f63fa227ed56
   spec:
     clusterCredentialSecretName: rec-redis-canadacentral
     clusterCredentialSecretRole: ""
@@ -30,9 +30,8 @@ items:
       apiFqdnUrl: api.redis-canadacentral.demo.umnikov.com
       dbFqdnSuffix: -db.redis-canadacentral.demo.umnikov.com
       ingressAnnotations:
-        kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        haproxy-ingress.github.io/ssl-passthrough: "true"
+        kubernetes.io/ingress.class: haproxy
       method: ingress
     nodes: 3
     persistentSpec:
@@ -48,10 +47,10 @@ items:
       versionTag: 6.4.2-94
     redisEnterpriseNodeResources:
       limits:
-        cpu: "2"
-        memory: 8Gi
+        cpu: 1500m
+        memory: 4Gi
       requests:
-        cpu: "2"
+        cpu: "1"
         memory: 8Gi
     serviceAccountName: rec-redis-canadacentral
     services:
@@ -64,15 +63,15 @@ items:
     username: demo@redis.com
   status:
     bundledDatabaseVersions:
-    - dbType: memcached
-      version: 1.4.17
     - dbType: redis
       version: 6.2.10
     - dbType: redis
       version: 6.0.17
+    - dbType: memcached
+      version: 1.4.17
     licenseStatus:
-      activationDate: "2023-08-14T13:30:28Z"
-      expirationDate: "2023-09-13T13:30:28Z"
+      activationDate: "2023-08-18T19:38:24Z"
+      expirationDate: "2023-09-17T19:38:24Z"
       licenseState: Valid
       shardsLimit: 4
     managedAPIs:

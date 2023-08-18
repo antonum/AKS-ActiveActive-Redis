@@ -3,7 +3,7 @@ kind: RedisEnterpriseRemoteCluster
 metadata:
   name: redis-canadacentral
 spec:
-  recName: redis-canadacentral
+  recName: rec-redis-canadacentral
   recNamespace: rec
   apiFqdnUrl: api.redis-canadacentral.demo.umnikov.com
   dbFqdnSuffix: -db.redis-canadacentral.demo.umnikov.com

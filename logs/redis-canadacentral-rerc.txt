@@ -1,5 +1,5 @@
 NAMESPACE   NAME                  STATUS   SPEC STATUS   LOCAL
-rec         redis-canadacentral   Active   Valid         false
+rec         redis-canadacentral   Active   Valid         true
 rec         redis-eastus          Active   Valid         false
 apiVersion: v1
 items:
@@ -8,23 +8,24 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"app.redislabs.com/v1alpha1","kind":"RedisEnterpriseRemoteCluster","metadata":{"annotations":{},"name":"redis-canadacentral","namespace":"rec"},"spec":{"apiFqdnUrl":"api.redis-canadacentral.demo.umnikov.com","dbFqdnSuffix":"-db.redis-canadacentral.demo.umnikov.com","recName":"redis-canadacentral","recNamespace":"rec","secretName":"redis-enterprise-redis-canadacentral"}}
-    creationTimestamp: "2023-08-14T13:49:07Z"
+        {"apiVersion":"app.redislabs.com/v1alpha1","kind":"RedisEnterpriseRemoteCluster","metadata":{"annotations":{},"name":"redis-canadacentral","namespace":"rec"},"spec":{"apiFqdnUrl":"api.redis-canadacentral.demo.umnikov.com","dbFqdnSuffix":"-db.redis-canadacentral.demo.umnikov.com","recName":"rec-redis-canadacentral","recNamespace":"rec","secretName":"redis-enterprise-redis-canadacentral"}}
+      redis.io/last-in-use-spec: '{"recName":"rec-redis-canadacentral","recNamespace":"rec","apiFqdnUrl":"api.redis-canadacentral.demo.umnikov.com","dbFqdnSuffix":"-db.redis-canadacentral.demo.umnikov.com"}'
+    creationTimestamp: "2023-08-18T19:58:09Z"
     finalizers:
     - redis.io/rerc-finalizer
     generation: 1
     name: redis-canadacentral
     namespace: rec
-    resourceVersion: "7560"
-    uid: d314b8cc-d2f9-4c7d-8bab-a42f176fc43d
+    resourceVersion: "10516"
+    uid: fd51ce82-f2a2-4262-8c4e-3b1f48877870
   spec:
     apiFqdnUrl: api.redis-canadacentral.demo.umnikov.com
     dbFqdnSuffix: -db.redis-canadacentral.demo.umnikov.com
-    recName: redis-canadacentral
+    recName: rec-redis-canadacentral
     recNamespace: rec
     secretName: redis-enterprise-redis-canadacentral
   status:
-    local: false
+    local: true
     observedGeneration: 1
     specStatus: Valid
     status: Active
@@ -33,19 +34,20 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"app.redislabs.com/v1alpha1","kind":"RedisEnterpriseRemoteCluster","metadata":{"annotations":{},"name":"redis-eastus","namespace":"rec"},"spec":{"apiFqdnUrl":"api.redis-eastus.demo.umnikov.com","dbFqdnSuffix":"-db.redis-eastus.demo.umnikov.com","recName":"redis-eastus","recNamespace":"rec","secretName":"redis-enterprise-redis-eastus"}}
-    creationTimestamp: "2023-08-14T15:16:39Z"
+        {"apiVersion":"app.redislabs.com/v1alpha1","kind":"RedisEnterpriseRemoteCluster","metadata":{"annotations":{},"name":"redis-eastus","namespace":"rec"},"spec":{"apiFqdnUrl":"api.redis-eastus.demo.umnikov.com","dbFqdnSuffix":"-db.redis-eastus.demo.umnikov.com","recName":"rec-redis-eastus","recNamespace":"rec","secretName":"redis-enterprise-redis-eastus"}}
+      redis.io/last-in-use-spec: '{"recName":"rec-redis-eastus","recNamespace":"rec","apiFqdnUrl":"api.redis-eastus.demo.umnikov.com","dbFqdnSuffix":"-db.redis-eastus.demo.umnikov.com"}'
+    creationTimestamp: "2023-08-18T19:58:09Z"
     finalizers:
     - redis.io/rerc-finalizer
     generation: 1
     name: redis-eastus
     namespace: rec
-    resourceVersion: "29281"
-    uid: 9b965c65-0682-48da-b0c7-e24cc6089d94
+    resourceVersion: "10517"
+    uid: 5cf6708f-f5a5-4452-8240-b2aeb6c48052
   spec:
     apiFqdnUrl: api.redis-eastus.demo.umnikov.com
     dbFqdnSuffix: -db.redis-eastus.demo.umnikov.com
-    recName: redis-eastus
+    recName: rec-redis-eastus
     recNamespace: rec
     secretName: redis-enterprise-redis-eastus
   status:
