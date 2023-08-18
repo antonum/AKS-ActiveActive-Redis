@@ -1,11 +1,8 @@
-RESOURCE_GROUP=anton-rg-aa-aks
-CLUSTER1=redis-eastus
-CLUSTER2=redis-canadacentral
-DNS_ZONE=demo.umnikov.com
-#DNS_ZONE=sademo.umnikov.com
-# Resource Group zone where DNS is defined
-DNS_RESOURCE_GROUP=anton-rg
-NS=rec
+# load configuration options from file
+# change setting like cluster names, DNS zones etc in config.sh
+source config.sh
+echo "Using configuration in config.sh:"
+cat config.sh
 
 # get defined clusters in kube config
 kubectl config get-clusters

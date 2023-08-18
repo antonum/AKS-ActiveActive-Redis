@@ -1,5 +1,5 @@
 NAMESPACE   NAME                      NODES   VERSION    STATE     SPEC STATUS   LICENSE STATE   SHARDS LIMIT   LICENSE EXPIRATION DATE   AGE
-rec         rec-redis-canadacentral   3       6.4.2-94   Running   Valid         Valid           4              2023-09-17T19:38:24Z      68m
+rec         rec-redis-canadacentral   3       6.4.2-94   Running   Valid         Valid           4              2023-09-17T19:38:24Z      98m
 apiVersion: v1
 items:
 - apiVersion: app.redislabs.com/v1

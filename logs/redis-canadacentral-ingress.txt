@@ -1,6 +1,6 @@
 NAMESPACE   NAME                      CLASS    HOSTS                                                ADDRESS   PORTS   AGE
-rec         crdb-anton                <none>   crdb-anton-db.redis-canadacentral.demo.umnikov.com             80      36m
-rec         rec-redis-canadacentral   <none>   api.redis-canadacentral.demo.umnikov.com                       80      68m
+rec         crdb-anton                <none>   crdb-anton-db.redis-canadacentral.demo.umnikov.com             80      66m
+rec         rec-redis-canadacentral   <none>   api.redis-canadacentral.demo.umnikov.com                       80      98m
 apiVersion: v1
 items:
 - apiVersion: networking.k8s.io/v1

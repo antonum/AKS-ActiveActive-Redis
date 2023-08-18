@@ -1,8 +1,8 @@
 [1mCLUSTER NODES:[0m
-[1m[4mNODE:ID ROLE   ADDRESS    EXTERNAL_ADDRESS HOSTNAME           SHARDS CORES FREE_RAM        PROVISIONAL_RAM VERSION  STATUS                     [0m
-[36m*node:1 master 10.244.1.8 10.244.1.8       rec-redis-eastus-0 1/100  4     12.31GB/15.62GB 9.4GB/12.8GB    6.4.2-94 [32mOK[0m[36m                         [0m
-[1m[36mnode:2  slave  10.244.0.6 10.244.0.6       rec-redis-eastus-1 1/100  4     12.71GB/15.62GB 9.81GB/12.8GB   6.4.2-94 [32mOK[0m[1m[36m                         [0m
-[36mnode:3  slave  10.244.2.5 10.244.2.5       rec-redis-eastus-2 0/100  4     -/15.62GB       -/12.8GB        6.4.2-94 [31mDOWN, last seen 56m 25s ago[0m[36m[0m
+[1m[4mNODE:ID ROLE   ADDRESS    EXTERNAL_ADDRESS HOSTNAME           SHARDS CORES FREE_RAM        PROVISIONAL_RAM VERSION  STATUS                    [0m
+[36m*node:1 master 10.244.1.8 10.244.1.8       rec-redis-eastus-0 1/100  4     12.22GB/15.62GB 9.32GB/12.8GB   6.4.2-94 [32mOK[0m[36m                        [0m
+[1m[36mnode:2  slave  10.244.0.6 10.244.0.6       rec-redis-eastus-1 1/100  4     12.7GB/15.62GB  9.79GB/12.8GB   6.4.2-94 [32mOK[0m[1m[36m                        [0m
+[36mnode:3  slave  10.244.2.5 10.244.2.5       rec-redis-eastus-2 0/100  4     -/15.62GB       -/12.8GB        6.4.2-94 [31mDOWN, last seen 1h 26m ago[0m[36m[0m
 
 [1mDATABASES:[0m
 [1m[4mDB:ID NAME       TYPE  STATUS SHARDS PLACEMENT REPLICATION PERSISTENCE ENDPOINT                                                [0m
