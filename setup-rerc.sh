@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # load configuration options from file
 # change setting like cluster names, DNS zones etc in config.sh
 source config.sh
@@ -75,7 +77,6 @@ spec:
     memorySize: 200MB
     shardCount: 1
     replication: true
-    persistence: "aofEverySecond"
   participatingClusters:
       - name: $CLUSTER1
       - name: $CLUSTER2

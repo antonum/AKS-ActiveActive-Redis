@@ -5,7 +5,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rg" {
   location = var.region1
-  name     = "anton-rg-aa-aks"
+  name     = var.azure_rg
 }
 
 resource "azurerm_kubernetes_cluster" "k8s1" {

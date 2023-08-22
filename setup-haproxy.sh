@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # load configuration options from file
 # change setting like cluster names, DNS zones etc in config.sh
 source config.sh
@@ -134,12 +136,16 @@ kubectl -n $NS patch rec  rec-$CLUSTER --type merge --patch "{\"spec\": \
 
 done
 
+# Set the desired status
+desired_status="Running"
 
-C1_STATUS=$(kubectl get rec rec-redis-canadacentral -n rec -o json | jq .status.state)
-echo "$C1_STATUS"
-while [[ "$C1_STATUS" != "Running" ]] #likely not right syntax
-do
-  sleep 10
-  C1_STATUS=$(kubectl get rec rec-redis-canadacentral -n rec -o json | jq .status.state)
-  echo "$C1_STATUS"
+# Loop until the desired status is reached
+while [ "$kubectl_output" != "$desired_status" ]; do
+    kubectl_output=$(kubectl get rec rec-redis-canadacentral -n rec -o json | jq -r .status.state)
+    echo "Current status: $kubectl_output"
+    
+    sleep 5  # Adjust the sleep duration as needed
 done
+
+echo "Status is now $desired_status"
+#exit 0

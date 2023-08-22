@@ -1,24 +1,25 @@
-NAME                                                   READY   STATUS    RESTARTS   AGE
-pod/rec-redis-eastus-0                                 2/2     Running   0          98m
-pod/rec-redis-eastus-1                                 2/2     Running   0          97m
-pod/rec-redis-eastus-services-rigger-c78675fcd-mgsp7   1/1     Running   0          98m
-pod/redis-enterprise-operator-87b85f858-hmq2t          2/2     Running   0          99m
+NAME                                                   READY   STATUS    RESTARTS      AGE
+pod/rec-redis-eastus-0                                 2/2     Running   0             28m
+pod/rec-redis-eastus-1                                 2/2     Running   0             27m
+pod/rec-redis-eastus-2                                 2/2     Running   0             25m
+pod/rec-redis-eastus-services-rigger-668959887-8vzpc   1/1     Running   1 (25m ago)   28m
+pod/redis-enterprise-operator-6668ccd8dc-plqkv         2/2     Running   0             29m
 
 NAME                            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
-service/admission               ClusterIP   10.0.45.41     <none>        443/TCP             99m
-service/crdb-anton              ClusterIP   10.0.169.235   <none>        15952/TCP           66m
-service/crdb-anton-headless     ClusterIP   None           <none>        15952/TCP           66m
-service/rec-redis-eastus        ClusterIP   10.0.85.12     <none>        9443/TCP,8001/TCP   98m
-service/rec-redis-eastus-prom   ClusterIP   None           <none>        8070/TCP            98m
-service/rec-redis-eastus-ui     ClusterIP   10.0.239.4     <none>        8443/TCP            98m
+service/admission               ClusterIP   10.0.129.222   <none>        443/TCP             29m
+service/crdb-anton              ClusterIP   10.0.40.61     <none>        16926/TCP           8s
+service/crdb-anton-headless     ClusterIP   None           <none>        16926/TCP           8s
+service/rec-redis-eastus        ClusterIP   10.0.251.198   <none>        9443/TCP,8001/TCP   28m
+service/rec-redis-eastus-prom   ClusterIP   None           <none>        8070/TCP            28m
+service/rec-redis-eastus-ui     ClusterIP   10.0.92.196    <none>        8443/TCP            28m
 
 NAME                                               READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/rec-redis-eastus-services-rigger   1/1     1            1           98m
-deployment.apps/redis-enterprise-operator          1/1     1            1           99m
+deployment.apps/rec-redis-eastus-services-rigger   1/1     1            1           28m
+deployment.apps/redis-enterprise-operator          1/1     1            1           29m
 
 NAME                                                         DESIRED   CURRENT   READY   AGE
-replicaset.apps/rec-redis-eastus-services-rigger-c78675fcd   1         1         1       98m
-replicaset.apps/redis-enterprise-operator-87b85f858          1         1         1       99m
+replicaset.apps/rec-redis-eastus-services-rigger-668959887   1         1         1       28m
+replicaset.apps/redis-enterprise-operator-6668ccd8dc         1         1         1       29m
 
 NAME                                READY   AGE
-statefulset.apps/rec-redis-eastus   2/3     98m
+statefulset.apps/rec-redis-eastus   3/3     28m

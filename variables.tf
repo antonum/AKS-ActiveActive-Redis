@@ -12,6 +12,12 @@ variable "region2" {
 
 variable "instance_type" {
   type        = string
-  default     = "Standard_D4_v5"
+  default     = "Standard_D8_v5"
   description = "Instance type for the AKS cluster"
+}
+
+variable "azure_rg" {
+  type        = string
+  default     = "anton-rg-aa-aks"
+  description = "Resource group to provision the infrastructure"
 }

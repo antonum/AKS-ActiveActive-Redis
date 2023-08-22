@@ -1,5 +1,5 @@
 NAMESPACE   NAME               NODES   VERSION    STATE     SPEC STATUS   LICENSE STATE   SHARDS LIMIT   LICENSE EXPIRATION DATE   AGE
-rec         rec-redis-eastus   3       6.4.2-94   Running   Valid         Valid           4              2023-09-17T19:37:42Z      98m
+rec         rec-redis-eastus   3       7.2.4-52   Running   Valid         Valid           4              2023-09-20T15:15:03Z      29m
 apiVersion: v1
 items:
 - apiVersion: app.redislabs.com/v1
@@ -7,20 +7,20 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"app.redislabs.com/v1","kind":"RedisEnterpriseCluster","metadata":{"annotations":{},"name":"rec-redis-eastus","namespace":"rec"},"spec":{"nodes":3,"redisEnterpriseNodeResources":{"limits":{"cpu":"1500m","memory":"4Gi"},"requests":{"cpu":"1000m","memory":"8Gi"}}}}
-      operator_version: 6.4.2-8
+        {"apiVersion":"app.redislabs.com/v1","kind":"RedisEnterpriseCluster","metadata":{"annotations":{},"name":"rec-redis-eastus","namespace":"rec"},"spec":{"nodes":3,"redisEnterpriseNodeResources":{"limits":{"cpu":"1000m","memory":"4Gi"},"requests":{"cpu":"1000m","memory":"4Gi"}}}}
+      operator_version: 7.2.4-2
       redis.io/pvc_extra_labels: "null"
-    creationTimestamp: "2023-08-18T19:36:26Z"
+    creationTimestamp: "2023-08-21T15:13:47Z"
     finalizers:
     - redbfinalizer.redisenterpriseclusters.app.redislabs.com
     - stsfinalizer.redisenterprisecluster.app.redislabs.com
     - recpodfinalizer.redisenterprisecluster.app.redislabs.com
     - reaadbfinalizer.redisenterprisecluster.app.redislabs.com
-    generation: 5
+    generation: 11
     name: rec-redis-eastus
     namespace: rec
-    resourceVersion: "5359"
-    uid: 0169bb6e-c9e6-49db-bb51-bc3f8f11ce6e
+    resourceVersion: "12579"
+    uid: f6f6b81d-a93f-45c7-bc2c-e0e7c5702e61
   spec:
     clusterCredentialSecretName: rec-redis-eastus
     clusterCredentialSecretRole: ""
@@ -37,21 +37,21 @@ items:
     persistentSpec:
       enabled: true
       storageClassName: ""
-      volumeSize: 40Gi
+      volumeSize: 20Gi
     podStartingPolicy:
       enabled: false
       startingThresholdSeconds: 540
     redisEnterpriseImageSpec:
       imagePullPolicy: IfNotPresent
       repository: redislabs/redis
-      versionTag: 6.4.2-94
+      versionTag: 7.2.4-52
     redisEnterpriseNodeResources:
       limits:
-        cpu: 1500m
+        cpu: "1"
         memory: 4Gi
       requests:
         cpu: "1"
-        memory: 8Gi
+        memory: 4Gi
     serviceAccountName: rec-redis-eastus
     services:
       apiService:
@@ -63,15 +63,21 @@ items:
     username: demo@redis.com
   status:
     bundledDatabaseVersions:
+    - dbType: redis
+      major: true
+      version: 7.2.0
+    - dbType: redis
+      major: true
+      version: 6.2.13
+    - dbType: redis
+      major: true
+      version: 6.0.20
     - dbType: memcached
       version: 1.4.17
-    - dbType: redis
-      version: 6.0.17
-    - dbType: redis
-      version: 6.2.10
+    ingressOrRouteMethodStatus: ingress
     licenseStatus:
-      activationDate: "2023-08-18T19:37:42Z"
-      expirationDate: "2023-09-17T19:37:42Z"
+      activationDate: "2023-08-21T15:15:03Z"
+      expirationDate: "2023-09-20T15:15:03Z"
       licenseState: Valid
       shardsLimit: 4
     managedAPIs:
@@ -80,23 +86,27 @@ items:
     - displayName: RedisJSON
       name: ReJSON
       versions:
-      - 2.4.7
+      - 2.6.6
     - displayName: RedisBloom
       name: bf
       versions:
-      - 2.4.5
+      - 2.6.3
     - displayName: RedisGraph
       name: graph
       versions:
-      - 2.10.10
+      - 2.10.12
+    - displayName: RedisGears
+      name: redisgears_2
+      versions:
+      - 2.0.11
     - displayName: RediSearch 2
       name: search
       versions:
-      - 2.6.9
+      - 2.8.4
     - displayName: RedisTimeSeries
       name: timeseries
       versions:
-      - 1.8.10
+      - 1.10.4
     specStatus: Valid
     state: Running
 kind: List

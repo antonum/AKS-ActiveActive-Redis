@@ -1,6 +1,6 @@
 NAMESPACE   NAME               CLASS    HOSTS                                         ADDRESS   PORTS   AGE
-rec         crdb-anton         <none>   crdb-anton-db.redis-eastus.demo.umnikov.com             80      66m
-rec         rec-redis-eastus   <none>   api.redis-eastus.demo.umnikov.com                       80      98m
+rec         crdb-anton         <none>   crdb-anton-db.redis-eastus.demo.umnikov.com             80      11s
+rec         rec-redis-eastus   <none>   api.redis-eastus.demo.umnikov.com                       80      28m
 apiVersion: v1
 items:
 - apiVersion: networking.k8s.io/v1
@@ -9,11 +9,11 @@ items:
     annotations:
       haproxy-ingress.github.io/ssl-passthrough: "true"
       kubernetes.io/ingress.class: haproxy
-    creationTimestamp: "2023-08-18T20:08:59Z"
+    creationTimestamp: "2023-08-21T15:42:44Z"
     generation: 1
     labels:
       app: redis-enterprise
-      redis.io/bdb: "2"
+      redis.io/bdb: "1"
       redis.io/role: redis-enterprise-bdb
     name: crdb-anton
     namespace: rec
@@ -23,9 +23,9 @@ items:
       controller: true
       kind: RedisEnterpriseCluster
       name: rec-redis-eastus
-      uid: 0169bb6e-c9e6-49db-bb51-bc3f8f11ce6e
-    resourceVersion: "10671"
-    uid: 15ae1755-7016-40bc-bbbb-69f33017cda6
+      uid: f6f6b81d-a93f-45c7-bc2c-e0e7c5702e61
+    resourceVersion: "15598"
+    uid: c43878f4-fcc0-45cd-a0ac-42678bbd3560
   spec:
     rules:
     - host: crdb-anton-db.redis-eastus.demo.umnikov.com
@@ -35,7 +35,7 @@ items:
             service:
               name: crdb-anton
               port:
-                number: 15952
+                number: 16926
           path: /
           pathType: ImplementationSpecific
   status:
@@ -48,7 +48,7 @@ items:
     annotations:
       haproxy-ingress.github.io/ssl-passthrough: "true"
       kubernetes.io/ingress.class: haproxy
-    creationTimestamp: "2023-08-18T19:36:53Z"
+    creationTimestamp: "2023-08-21T15:14:02Z"
     generation: 1
     labels:
       app: redis-enterprise
@@ -61,9 +61,9 @@ items:
       controller: true
       kind: RedisEnterpriseCluster
       name: rec-redis-eastus
-      uid: 0169bb6e-c9e6-49db-bb51-bc3f8f11ce6e
-    resourceVersion: "2278"
-    uid: 4ea6d957-5c44-4b94-98fb-c73175ad2ce2
+      uid: f6f6b81d-a93f-45c7-bc2c-e0e7c5702e61
+    resourceVersion: "8195"
+    uid: 9cbbd20e-07f5-465d-a827-d940d33b45f3
   spec:
     rules:
     - host: api.redis-eastus.demo.umnikov.com

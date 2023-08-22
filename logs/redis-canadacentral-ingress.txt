@@ -1,6 +1,6 @@
 NAMESPACE   NAME                      CLASS    HOSTS                                                ADDRESS   PORTS   AGE
-rec         crdb-anton                <none>   crdb-anton-db.redis-canadacentral.demo.umnikov.com             80      66m
-rec         rec-redis-canadacentral   <none>   api.redis-canadacentral.demo.umnikov.com                       80      98m
+rec         crdb-anton                <none>   crdb-anton-db.redis-canadacentral.demo.umnikov.com             80      14s
+rec         rec-redis-canadacentral   <none>   api.redis-canadacentral.demo.umnikov.com                       80      28m
 apiVersion: v1
 items:
 - apiVersion: networking.k8s.io/v1
@@ -9,11 +9,11 @@ items:
     annotations:
       haproxy-ingress.github.io/ssl-passthrough: "true"
       kubernetes.io/ingress.class: haproxy
-    creationTimestamp: "2023-08-18T20:08:59Z"
+    creationTimestamp: "2023-08-21T15:42:45Z"
     generation: 1
     labels:
       app: redis-enterprise
-      redis.io/bdb: "2"
+      redis.io/bdb: "1"
       redis.io/role: redis-enterprise-bdb
     name: crdb-anton
     namespace: rec
@@ -23,9 +23,9 @@ items:
       controller: true
       kind: RedisEnterpriseCluster
       name: rec-redis-canadacentral
-      uid: 55154cc4-1b04-4ae3-978c-f63fa227ed56
-    resourceVersion: "10690"
-    uid: 6018a5f5-cba8-49bb-b7ce-63e5f2176ecc
+      uid: 3926eddb-3ca4-416b-8226-e601ec2fde02
+    resourceVersion: "15393"
+    uid: 6d0987c2-2258-4f42-b4fd-9fd1bf7136af
   spec:
     rules:
     - host: crdb-anton-db.redis-canadacentral.demo.umnikov.com
@@ -35,20 +35,18 @@ items:
             service:
               name: crdb-anton
               port:
-                number: 15952
+                number: 16926
           path: /
           pathType: ImplementationSpecific
   status:
-    loadBalancer:
-      ingress:
-      - {}
+    loadBalancer: {}
 - apiVersion: networking.k8s.io/v1
   kind: Ingress
   metadata:
     annotations:
       haproxy-ingress.github.io/ssl-passthrough: "true"
       kubernetes.io/ingress.class: haproxy
-    creationTimestamp: "2023-08-18T19:37:13Z"
+    creationTimestamp: "2023-08-21T15:14:23Z"
     generation: 1
     labels:
       app: redis-enterprise
@@ -61,9 +59,9 @@ items:
       controller: true
       kind: RedisEnterpriseCluster
       name: rec-redis-canadacentral
-      uid: 55154cc4-1b04-4ae3-978c-f63fa227ed56
-    resourceVersion: "2283"
-    uid: 8393b963-b012-4130-85f2-cb478fdffe36
+      uid: 3926eddb-3ca4-416b-8226-e601ec2fde02
+    resourceVersion: "8181"
+    uid: b6a379cb-80f1-4390-99b8-4ba3efc2f949
   spec:
     rules:
     - host: api.redis-canadacentral.demo.umnikov.com

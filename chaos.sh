@@ -1,6 +1,7 @@
 region=canadacentral
 kubectl config use-context "redis-$region"
 kubectl get nodes
+az vmss list -o table
 cluster=$(az vmss list -o table | grep $region)
 rg=$(echo $cluster | awk '{print $2}')
 vmss=$(echo $cluster | awk '{print $1}')
@@ -8,10 +9,11 @@ echo
 echo "### Restart single cluster node in $region ###"
 
 echo "az vmss restart " \
-"--name vmss" \
+"--name $vmss" \
 "--resource-group $rg" \
-"--instance-ids 3" \
+"--instance-ids 1" \
 "--no-wait"
+echo "watch kubectl get pods -n rec -o wide"
 
 echo
 echo "### Restart AKS cluster node in $region ###"
