@@ -6,32 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        .b-example-divider {
+          width: 100%;
+          height: 0.5rem;
+          background-color: rgba(0, 0, 0, .1);
+          border: solid rgba(0, 0, 0, .15);
+          border-width: 1px 0;
+          box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="row">
+            <h2 class="pb-2 border-bottom">Redis endpoint availability</h2>
             <div class="col-sm">
-                <h2>Canada Central</h2>
-                <!--<a class="btn" href="#" onClick="getRedisStatus()">Test</a>-->
-                <div id="status_central">status of central region</div>
+                <h3>Canada Central</h3>
+                <div id="status_central"></div>
             </div>
             <div class="col-sm">
-                <h2>Failover-Enabled</h2>
+                <h3>Failover-Enabled</h3>
                 <div id="status_failover"></div>
-                <!--<span class="badge bg-success">Success</span>-->
+                
             </div>
             <div class="col-sm">
-                <h2>Canada East</h2>
+                <h3>Canada East</h3>
                 <div id="status_east"></div>
             </div>
+            
         </div>
         <div class="row">
+        <p>  </p>
+        </div>
+        <div class="row">
+            <h2 class="pb-2 border-bottom">Redis Enterprise Cluster status</h2>
             <div class="col-md">
-                <h2>redis-canadacentral</h2>
+                <h3>redis-canadacentral</h3>
                 <ul class="list-group" id="cl1"></ul>
             </div>
             <div class="col-md">
-                <h2>redis-canadaeast</h2>
+                <h3>redis-canadaeast</h3>
                 <ul class="list-group" id="cl2"></ul>
             </div>
         </div>
@@ -93,6 +108,9 @@
             }).then(function(data) {
                 //alert(data)
                 $("#cl"+cluster_id).empty()
+                if (data.hasOwnProperty("message")) {
+                    $("#cl"+cluster_id).append("<span class=\"badge bg-danger\">"+data.message+"</span>")
+                }
                 //alert(data.node_1)
                 for (i=1;i<5;i++) {
                     node="node_"+i
@@ -103,14 +121,32 @@
                     if (status=="down") {
                         list_class="list-group-item-danger"
                     }
-                    $("#cl"+cluster_id).append("<li class=\"list-group-item "+list_class+"\">"+node+" "+status+"</li>")                    
+                    shards=""
+                    for (const shard of data[node].shards) {
+                        if (shard.status=="active") {
+                            shard_color=" text-bg-success "
+                        } else if (shard.status=="recovery") {
+                            shard_color=" text-bg-danger "
+                            //recovery
+                        } else {
+                            shard_color=" text-bg-danger "
+                            //recovery
+                        }
+                        shards=shards+"<span class=\"badge rounded-pill "+shard_color+"\">db-"+shard.bdb_uid+" "+shard.role+" " + shard.detailed_status+"</span>";
+                    }
+                    $("#cl"+cluster_id).append("<li class=\"list-group-item "+list_class+"\">"+node+" "+status+" "+shards+"</li>")                    
                 }
 
                 //$("#status_east").append(Math.random())
                 //alert(data.message)
             });
         }
-
+        //run these once to populate the screen
+        getRedisStatus1()
+        getRedisStatus2()
+        getRedisStatus12()
+        getClusterStatus(1)
+        getClusterStatus(2)
 
         var intervalId = window.setInterval(function(){
             getRedisStatus1()
@@ -119,7 +155,7 @@
             getClusterStatus(1)
             getClusterStatus(2)
 
-        }, 5000);
+        }, 5000); 
 </script>
 </body>
 </html>

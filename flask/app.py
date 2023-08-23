@@ -61,14 +61,20 @@ def redis12():
     
 
 def get_cluster(region):
-    config.load_kube_config(context=f"redis-{region}")
-    v1 = client.CoreV1Api()
-    secret=v1.read_namespaced_secret(f"rec-redis-{region}", "rec")
-    user=base64.b64decode(secret.data['username'])
-    pwd=base64.b64decode(secret.data['password'])
-    basic = HTTPBasicAuth(user.decode('utf-8'), pwd.decode('utf-8'))
+    try:
+        config.load_kube_config(context=f"redis-{region}")
+        v1 = client.CoreV1Api()
+        secret=v1.read_namespaced_secret(f"rec-redis-{region}", "rec")
+        user=base64.b64decode(secret.data['username'])
+        pwd=base64.b64decode(secret.data['password'])
+        basic = HTTPBasicAuth(user.decode('utf-8'), pwd.decode('utf-8'))
+    except:
+        return jsonify(message="Error: Can not connect to Kubernetes cluster")
 
-    r=requests.get(f"https://api.redis-{region}.demo.umnikov.com/v1/nodes", auth=basic, verify=False)
+    try:
+        r=requests.get(f"https://api.redis-{region}.demo.umnikov.com/v1/nodes", auth=basic, verify=False, timeout=2)
+    except:
+        return jsonify(message="Error: Can not connect to Redis Enterprise cluster")
     res={}
     for node in json.loads(r.text):
         node_small={}
