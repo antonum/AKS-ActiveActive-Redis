@@ -66,7 +66,7 @@ for i in range(niter):
     if (r1_aa_time>r1_time):
          r1_time=r1_time+1000000
 
-    #print(r1_time, r1_aa_time, r1_time - r1_aa_time) 
+    print(r1_time, r1_aa_time, r1_time - r1_aa_time) 
     if (i>=1):
         r1.append(r1_time - r1_aa_time)
 #print(r1,r2)

@@ -11,18 +11,28 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <h1>Canada Central</h1>
+                <h2>Canada Central</h2>
                 <!--<a class="btn" href="#" onClick="getRedisStatus()">Test</a>-->
                 <div id="status_central">status of central region</div>
             </div>
             <div class="col-sm">
-                <h1>Failover-Enabled</h1>
+                <h2>Failover-Enabled</h2>
                 <div id="status_failover"></div>
                 <!--<span class="badge bg-success">Success</span>-->
             </div>
             <div class="col-sm">
-                <h1>Canada East</h1>
+                <h2>Canada East</h2>
                 <div id="status_east"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <h2>redis-canadacentral</h2>
+                <ul class="list-group" id="cl1"></ul>
+            </div>
+            <div class="col-md">
+                <h2>redis-canadaeast</h2>
+                <ul class="list-group" id="cl2"></ul>
             </div>
         </div>
     </div>
@@ -76,11 +86,39 @@
             });
         }
 
+        function getClusterStatus(cluster_id) {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:5000/cluster"+cluster_id
+            }).then(function(data) {
+                //alert(data)
+                $("#cl"+cluster_id).empty()
+                //alert(data.node_1)
+                for (i=1;i<5;i++) {
+                    node="node_"+i
+                    status=data[node].status
+                    if (status=="active") {
+                        list_class="list-group-item-success"
+                    }
+                    if (status=="down") {
+                        list_class="list-group-item-danger"
+                    }
+                    $("#cl"+cluster_id).append("<li class=\"list-group-item "+list_class+"\">"+node+" "+status+"</li>")                    
+                }
+
+                //$("#status_east").append(Math.random())
+                //alert(data.message)
+            });
+        }
+
 
         var intervalId = window.setInterval(function(){
             getRedisStatus1()
             getRedisStatus2()
             getRedisStatus12()
+            getClusterStatus(1)
+            getClusterStatus(2)
+
         }, 5000);
 </script>
 </body>

@@ -5,6 +5,13 @@ az vmss list -o table
 cluster=$(az vmss list -o table | grep $region)
 rg=$(echo $cluster | awk '{print $2}')
 vmss=$(echo $cluster | awk '{print $1}')
+
+
+echo
+echo "### Force delete pod within in $region ###"
+
+echo "kubectl delete pod rec-redis-$region-0 -n rec --force"
+
 echo
 echo "### Restart single cluster node in $region ###"
 
