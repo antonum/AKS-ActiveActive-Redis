@@ -22,8 +22,8 @@
         <div class="row">
             <h2 class="pb-2 border-bottom">Redis endpoint availability</h2>
             <div class="col-sm">
-                <h3>Canada Central</h3>
-                <div id="status_central"></div>
+                <h3>{{ region1 }}</h3>
+                <div id="status_{{ region1 }}"></div>
             </div>
             <div class="col-sm">
                 <h3>Failover-Enabled</h3>
@@ -31,8 +31,8 @@
                 
             </div>
             <div class="col-sm">
-                <h3>Canada East</h3>
-                <div id="status_east"></div>
+                <h3>{{ region2 }}</h3>
+                <div id="status_{{ region2 }}"></div>
             </div>
             
         </div>
@@ -42,52 +42,36 @@
         <div class="row">
             <h2 class="pb-2 border-bottom">Redis Enterprise Cluster status</h2>
             <div class="col-md">
-                <h3>redis-canadacentral</h3>
-                <ul class="list-group" id="cl1"></ul>
+                <h3>redis-{{ region1 }}</h3>
+                <ul class="list-group" id="cl_{{ region1 }}"></ul>
             </div>
             <div class="col-md">
-                <h3>redis-canadaeast</h3>
-                <ul class="list-group" id="cl2"></ul>
+                <h3>redis-{{ region2 }}</h3>
+                <ul class="list-group" id="cl_{{ region2 }}"></ul>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script>
-        function getRedisStatus1() {
+        function getRedisStatus(region) {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:5000/redis1"
+                url: "http://localhost:5000/redis/"+region
             }).then(function(data) {
-                $("#status_central").empty()
+                $("#status_"+region).empty()
                 if (data.message.includes("Error")) {
                     cls="bg-danger"
                 } else {
                     cls="bg-success"
                 }
-                $("#status_central").append("<span class=\"badge "+cls+"\">"+data.message+"</span>")
-            });
-        }
-        function getRedisStatus2() {
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:5000/redis2"
-            }).then(function(data) {
-                $("#status_east").empty()
-                if (data.message.includes("Error")) {
-                    cls="bg-danger"
-                } else {
-                    cls="bg-success"
-                }
-                $("#status_east").append("<span class=\"badge "+cls+"\">"+data.message+"</span>")
-                //$("#status_east").append(Math.random())
-                //alert(data.message)
+                $("#status_"+region).append("<span class=\"badge "+cls+"\">"+data.message+"</span>")
             });
         }
 
-        function getRedisStatus12() {
+        function getRedisStatusHA() {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:5000/redis12"
+                url: "http://localhost:5000/redisha"
             }).then(function(data) {
                 $("#status_failover").empty()
                 if (data.message.includes("Error")) {
@@ -101,15 +85,15 @@
             });
         }
 
-        function getClusterStatus(cluster_id) {
+        function getClusterStatus(region) {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:5000/cluster"+cluster_id
+                url: "http://localhost:5000/cluster/"+region
             }).then(function(data) {
                 //alert(data)
-                $("#cl"+cluster_id).empty()
+                $("#cl_"+region).empty()
                 if (data.hasOwnProperty("message")) {
-                    $("#cl"+cluster_id).append("<span class=\"badge bg-danger\">"+data.message+"</span>")
+                    $("#cl_"+region).append("<span class=\"badge bg-danger\">"+data.message+"</span>")
                 }
                 //alert(data.node_1)
                 for (i=1;i<5;i++) {
@@ -134,26 +118,29 @@
                         }
                         shards=shards+"<span class=\"badge rounded-pill "+shard_color+"\">db-"+shard.bdb_uid+" "+shard.role+" " + shard.detailed_status+"</span>";
                     }
-                    $("#cl"+cluster_id).append("<li class=\"list-group-item "+list_class+"\">"+node+" "+status+" "+shards+"</li>")                    
+                    $("#cl_"+region).append("<li class=\"list-group-item "+list_class+"\">"+node+" "+status+" "+shards+"</li>")                    
                 }
 
                 //$("#status_east").append(Math.random())
                 //alert(data.message)
             });
         }
+        region1="{{ region1 }}"
+        region2="{{ region2 }}"
+        
         //run these once to populate the screen
-        getRedisStatus1()
-        getRedisStatus2()
-        getRedisStatus12()
-        getClusterStatus(1)
-        getClusterStatus(2)
+        getRedisStatus(region1)
+        getRedisStatus(region2)
+        getRedisStatusHA()
+        getClusterStatus(region1)
+        getClusterStatus(region2)
 
         var intervalId = window.setInterval(function(){
-            getRedisStatus1()
-            getRedisStatus2()
-            getRedisStatus12()
-            getClusterStatus(1)
-            getClusterStatus(2)
+            getRedisStatus(region1)
+            getRedisStatus(region2)
+            getRedisStatusHA()
+            getClusterStatus(region1)
+            getClusterStatus(region2)
 
         }, 5000); 
 </script>

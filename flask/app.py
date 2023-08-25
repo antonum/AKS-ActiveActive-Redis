@@ -11,10 +11,13 @@ app = Flask(__name__)
 
 
 region1="canadacentral"
-region2="eastus"
-dns_suffix="demo.umnikov.com"
+#region2="eastus"
+region2="canadaeast"
+#dns_suffix="demo.umnikov.com"
+dns_suffix="sademo.umnikov.com"
 
 def connect_to_redis(region):
+    print(f"crdb-anton-db.redis-{region}.{dns_suffix}")
     try:
         r = redis.StrictRedis(
             host=f"crdb-anton-db.redis-{region}.{dns_suffix}",
@@ -31,25 +34,19 @@ def connect_to_redis(region):
         return None
     except redis.TimeoutError as e:
         return None
-        
-@app.route('/redis1')
-def redis1():
-    redis_connection = connect_to_redis(f"{region1}")
-    if redis_connection:
-        return jsonify(message="Connected to Redis successfully")
-    else:
-        return jsonify(message="Error: Redis is not available")
-    
-@app.route('/redis2')
-def redis2():
-    redis_connection = connect_to_redis(region2)
+
+@app.route('/redis/<region>')
+def redis_test(region):
+    redis_connection = connect_to_redis(region)
     if redis_connection:
         return jsonify(message="Connected to Redis successfully")
     else:
         return jsonify(message="Error: Redis is not available")
 
-@app.route('/redis12')
-def redis12():
+
+
+@app.route('/redisha')
+def redisha():
     redis_connection1 = connect_to_redis(f"{region1}")
     redis_connection2 = connect_to_redis(f"{region2}")
     if redis_connection1:
@@ -72,7 +69,7 @@ def get_cluster(region):
         return jsonify(message="Error: Can not connect to Kubernetes cluster")
 
     try:
-        r=requests.get(f"https://api.redis-{region}.demo.umnikov.com/v1/nodes", auth=basic, verify=False, timeout=2)
+        r=requests.get(f"https://api.redis-{region}.{dns_suffix}/v1/nodes", auth=basic, verify=False, timeout=2)
     except:
         return jsonify(message="Error: Can not connect to Redis Enterprise cluster")
     res={}
@@ -83,7 +80,7 @@ def get_cluster(region):
         node_small['shards']=[]
         res[f"node_{node['uid']}"]=node_small
 
-    r=requests.get(f"https://api.redis-{region}.demo.umnikov.com/v1/shards", auth=basic, verify=False)
+    r=requests.get(f"https://api.redis-{region}.{dns_suffix}/v1/shards", auth=basic, verify=False)
     for shard in json.loads(r.text):
         shard_small={}
         shard_small['status']=shard['status']
@@ -98,17 +95,14 @@ def get_cluster(region):
         res[f"node_{shard['node_uid']}"]['shards'].append(shard_small)
     return res
 
-@app.route('/cluster1')
-def cluster1():
-    return get_cluster(region1)
+@app.route('/cluster/<region>')
+def cluster(region):
+    return get_cluster(region)
 
-@app.route('/cluster2')
-def cluster2():
-    return get_cluster(region2)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', region1=region1, region2=region2)
 
 if __name__ == '__main__':
     while False:

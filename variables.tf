@@ -1,6 +1,6 @@
 variable "region1" {
   type        = string
-  default     = "eastus"
+  default     = "canadaeast"
   description = "Region 1 of the AA deployment"
 }
 

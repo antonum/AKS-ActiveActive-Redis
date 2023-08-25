@@ -6,8 +6,12 @@ import datetime
 # https://github.com/redis/redis-py/blob/master/docs/examples/ssl_connection_examples.ipynb
 
 region1="canadacentral"
-region2="eastus"
-dns_suffix="demo.umnikov.com"
+#region2="eastus"
+#dns_suffix="demo.umnikov.com"
+region2="canadaeast"
+dns_suffix="sademo.umnikov.com"
+
+
 
 import random
 import string
