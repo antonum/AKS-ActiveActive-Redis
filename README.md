@@ -1,6 +1,8 @@
 # Deploying Redis Enterprise Active Active on AKS
 
-This repo contains work in progress deployment scripts for Active Active Redis Enterprise deployment in two Azure Regions.
+This repo contains deployment scripts and web monitoring dashboard for Active Active Redis Enterprise deployment in two Azure Regions.
+
+![alt text](images/flask_app.png)
 
 ## Prerequisites and Configuration
 
@@ -15,7 +17,7 @@ az login
 
 Redis Enterprise ActiveActive requires FQDN (NOT the puublic IP) of the ingress services for both participating clusters. On Azure create DNS Zone and make sure it resolvable by the public DNS. 
 
-The following ENV variables in the scripts need to point to your DNS recors and the resource group where this record lives.
+The following ENV variables in the `config.sh` and `flask/app.py` need to point to your DNS record and the resource group where this record lives.
 ```
 DNS_ZONE=demo.umnikov.com
 DNS_RESOURCE_GROUP=anton-rg
@@ -25,11 +27,25 @@ DNS_RESOURCE_GROUP=anton-rg
 
 Terraform and bash scripts use Azure region name as both cluster and region identifiers. Make sure your subscription has access and sufficient Quota to provision 3 node cluster in each of the regions. By default, nodes used for AKS cluster are Standard_D4_v5 (4 vcpu, 16GB ram). You can change the node type in `variables.tf` file.
 
-Adjust `variables.tf` and configuration section of participating *.sh files:
+Adjust `variables.tf` `config.sh` and `flask/app.py` files:
 
 ```
+# config.sh
 CLUSTER1=redis-eastus
 CLUSTER2=redis-canadacentral
+```
+```
+//variables.tf
+variable "region2" {
+  type        = string
+  default     = "canadacentral"
+  description = "Region 2 of the AA deployment"
+}
+```
+```
+# flask/app.py
+region2="canadaeast"
+dns_suffix="demo.umnikov.com"
 ```
 
 ### Resource groups
@@ -113,13 +129,38 @@ kubectl config use-context redis-canadacentral
 kubectl exec -it  -n rec  rec-redis-canadacentral-0 -- bash
 rladmin status
 ```
+## Web Dashboard
+
+![alt text](images/flask_app.png)
+
+To enable Web UI for the demo run:
+```
+python3 flask/app.py
+```
+and point your browser to `http://localhost:5000/`
+
 
 ## Testing access to the cluster
 
+Adjust test.py file to use selected regions and dns name:
+```
+region1="canadacentral"
+region2="canadaeast"
+dns_suffix="sademo.umnikov.com"
+```
+
+Run test:
 ```
 python3 test.py
 ```
-Would connect to Redis DB endpoints in both regions. Make sure to adjust DNS suffix and region for your deployment.
+This simple woul connect to Redis DB endpoints in both regions and measure:
+- avg ping time for endpoints in both regions
+- replication speed between the regions
+- Speed of setting large (6Mb keys)
+
+While it's possible to execute this test on your own laptop, it is recommended to run it in the region, designated as "region1". It would demostrate difference in the responce (ping) time between local and remote region and will test large keys with the local region.
+
+
 
 To test access from the redis command line `redis-cli` use:
 ```
@@ -147,13 +188,20 @@ bash chaos.sh
 ```
 would build up the commands specific to your environment (but not execute them!!!) that you can use in the next following steps.
 
+### Forcing the k8s level (pod) failure
+
+To simulate k8s level failure - force delete one of the redis enterprise pods.
+```
+kubectl delete pod rec-redis-canadacentral-0 -n rec --force
+```
+
 ### Emulating single node failure
 
 To emulate a failure of a single node you can forse restart one of the nodes of the AKS cluster.
 ```
 az vmss restart  --name vmss \
 --resource-group MC_ANTON-RG-AA-AKS_REDIS-CANADACENTRAL_CANADACENTRAL \
---instance-ids 1 --no-wait
+--instance-ids 1
 ```
 
 With Replication enabled node restart even should be totally transparent to the application and the user. Note: application should be attempting reconnect in case of connection interruption (for instance - using `retry_on_error` conection flag in Python).
@@ -162,10 +210,10 @@ With Replication enabled node restart even should be totally transparent to the 
 
 To emulate the entire Region outage you can stop and restart the AKS cluster in that region. For example:
 ```
-az aks stop --name redis-canadacentral --resource-group anton-rg-aa-aks --no-wait
+az aks stop --name redis-canadacentral --resource-group anton-rg-aa-aks
 # wait for the cluster to stop
 
-az aks start --name redis-canadacentral --resource-group anton-rg-aa-aks --no-wait
+az aks start --name redis-canadacentral --resource-group anton-rg-aa-aks
 # wait for cluster to get back online
 ```
 
@@ -183,3 +231,8 @@ watch "kubectl -n rec describe rec | grep State"
 kubectl exec -it  -n rec  rec-redis-canadacentral-0 -- rladmin recover all
 ```
 Make sure you can access clusters in both regions and data entered another region during the outage is accasibble in the region recoverd from the outage.
+
+The following table summary of potential outage types:
+
+![alt text](images/outages.png)
+

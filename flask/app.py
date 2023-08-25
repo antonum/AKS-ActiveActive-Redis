@@ -105,12 +105,5 @@ def index():
     return render_template('index.html', region1=region1, region2=region2)
 
 if __name__ == '__main__':
-    while False:
-        redis_conn = connect_to_redis(region1)
-        if redis_conn:
-            break
-        else:
-            print("Redis is not available. Retrying in 5 seconds...")
-            time.sleep(5)
     
     app.run(debug=True)
