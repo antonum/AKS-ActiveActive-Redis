@@ -56,7 +56,7 @@
         function getRedisStatus(region) {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:5000/redis/"+region
+                url: "redis/"+region
             }).then(function(data) {
                 $("#status_"+region).empty()
                 if (data.message.includes("Error")) {
@@ -71,7 +71,7 @@
         function getRedisStatusHA() {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:5000/redisha"
+                url: "redisha"
             }).then(function(data) {
                 $("#status_failover").empty()
                 if (data.message.includes("Error")) {
@@ -88,7 +88,7 @@
         function getClusterStatus(region) {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:5000/cluster/"+region
+                url: "cluster/"+region
             }).then(function(data) {
                 //alert(data)
                 $("#cl_"+region).empty()
@@ -96,7 +96,7 @@
                     $("#cl_"+region).append("<span class=\"badge bg-danger\">"+data.message+"</span>")
                 }
                 //alert(data.node_1)
-                for (i=1;i<5;i++) {
+                for (i=1;i<4;i++) {
                     node="node_"+i
                     status=data[node].status
                     if (status=="active") {
@@ -128,20 +128,19 @@
         region1="{{ region1 }}"
         region2="{{ region2 }}"
         
-        //run these once to populate the screen
-        getRedisStatus(region1)
-        getRedisStatus(region2)
-        getRedisStatusHA()
-        getClusterStatus(region1)
-        getClusterStatus(region2)
-
-        var intervalId = window.setInterval(function(){
+        function updateDashboard() {
             getRedisStatus(region1)
             getRedisStatus(region2)
             getRedisStatusHA()
             getClusterStatus(region1)
             getClusterStatus(region2)
+        }
 
+        //run these once to populate the screen
+        updateDashboard()
+        
+        var intervalId = window.setInterval(function(){
+            updateDashboard()
         }, 5000); 
 </script>
 </body>

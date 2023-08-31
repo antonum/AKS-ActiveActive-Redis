@@ -15,7 +15,7 @@ az login
 
 ### Azure DNS Zone
 
-Redis Enterprise ActiveActive requires FQDN (NOT the puublic IP) of the ingress services for both participating clusters. On Azure create DNS Zone and make sure it resolvable by the public DNS. 
+Redis Enterprise ActiveActive requires FQDN (NOT the public IP) of the ingress services for both participating clusters. In your Azure Subscription create DNS Zone and make sure it resolvable by the public DNS. You might use subdomain of the existing domain hosted elsewhere.
 
 The following ENV variables in the `config.sh` and `flask/app.py` need to point to your DNS record and the resource group where this record lives.
 ```
@@ -50,7 +50,7 @@ dns_suffix="demo.umnikov.com"
 
 ### Resource groups
 
-Scripts currently hardcoded to use `anton-rg-aa-aks` as a resource group name for AKS resources. TODO - introduce parameter. This group is temporary and is destroyed upon `terraform destroy`. It is different from the `DNS_RESOURCE_GROUP` that should exist and contain DNS record.
+Terraform scripts would create a resource group to deploy AKS clusters. Default name is `anton-rg-aa-aks`You can change that name in `variables.tf` file. This group is temporary and is destroyed upon `terraform destroy`. This resource group is different from the `DNS_RESOURCE_GROUP` that should exist and contain DNS record.
 
 ### Software
 
