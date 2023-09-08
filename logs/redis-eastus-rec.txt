@@ -1,5 +1,5 @@
 NAMESPACE   NAME               NODES   VERSION    STATE     SPEC STATUS   LICENSE STATE   SHARDS LIMIT   LICENSE EXPIRATION DATE   AGE
-rec         rec-redis-eastus   3       7.2.4-52   Running   Valid         Valid           4              2023-09-20T15:15:03Z      29m
+rec         rec-redis-eastus   3       7.2.4-52   Running   Valid         Valid           4              2023-10-08T15:32:29Z      37m
 apiVersion: v1
 items:
 - apiVersion: app.redislabs.com/v1
@@ -7,20 +7,20 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"app.redislabs.com/v1","kind":"RedisEnterpriseCluster","metadata":{"annotations":{},"name":"rec-redis-eastus","namespace":"rec"},"spec":{"nodes":3,"redisEnterpriseNodeResources":{"limits":{"cpu":"1000m","memory":"4Gi"},"requests":{"cpu":"1000m","memory":"4Gi"}}}}
+        {"apiVersion":"app.redislabs.com/v1","kind":"RedisEnterpriseCluster","metadata":{"annotations":{},"name":"rec-redis-eastus","namespace":"rec"},"spec":{"ingressOrRouteSpec":{"apiFqdnUrl":"api.redis-eastus.demo.umnikov.com","dbFqdnSuffix":"-db.redis-eastus.demo.umnikov.com","ingressAnnotations":{"haproxy-ingress.github.io/ssl-passthrough":"true","kubernetes.io/ingress.class":"haproxy"},"method":"ingress"},"nodes":3,"redisEnterpriseNodeResources":{"limits":{"cpu":"1000m","memory":"4Gi"},"requests":{"cpu":"1000m","memory":"4Gi"}}}}
       operator_version: 7.2.4-2
       redis.io/pvc_extra_labels: "null"
-    creationTimestamp: "2023-08-21T15:13:47Z"
+    creationTimestamp: "2023-09-08T15:30:55Z"
     finalizers:
     - redbfinalizer.redisenterpriseclusters.app.redislabs.com
     - stsfinalizer.redisenterprisecluster.app.redislabs.com
     - recpodfinalizer.redisenterprisecluster.app.redislabs.com
     - reaadbfinalizer.redisenterprisecluster.app.redislabs.com
-    generation: 11
+    generation: 8
     name: rec-redis-eastus
     namespace: rec
-    resourceVersion: "12579"
-    uid: f6f6b81d-a93f-45c7-bc2c-e0e7c5702e61
+    resourceVersion: "9331"
+    uid: aa34095d-73a0-4c69-b530-67027616162f
   spec:
     clusterCredentialSecretName: rec-redis-eastus
     clusterCredentialSecretRole: ""
@@ -76,8 +76,8 @@ items:
       version: 1.4.17
     ingressOrRouteMethodStatus: ingress
     licenseStatus:
-      activationDate: "2023-08-21T15:15:03Z"
-      expirationDate: "2023-09-20T15:15:03Z"
+      activationDate: "2023-09-08T15:32:29Z"
+      expirationDate: "2023-10-08T15:32:29Z"
       licenseState: Valid
       shardsLimit: 4
     managedAPIs:

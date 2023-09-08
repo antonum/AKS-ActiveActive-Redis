@@ -25,7 +25,7 @@ DNS_RESOURCE_GROUP=anton-rg
 
 ### Azure regions
 
-Terraform and bash scripts use Azure region name as both cluster and region identifiers. Make sure your subscription has access and sufficient Quota to provision 3 node cluster in each of the regions. By default, nodes used for AKS cluster are Standard_D4_v5 (4 vcpu, 16GB ram). You can change the node type in `variables.tf` file.
+Terraform and bash scripts use Azure region name as both cluster and region identifiers. Make sure your subscription has access and sufficient Quota to provision 3 node cluster in each of the regions. By default, nodes used for AKS cluster are Standard_D8_v5 (8 vCPUs, 32GB ram). You can change the node type in `variables.tf` file.
 
 Adjust `variables.tf` `config.sh` and `flask/app.py` files:
 
@@ -96,7 +96,7 @@ bash setup-rerc.sh
 ```
 This script would prepare RERC (Redis Enterprise Remote Cluster) resources and corresponding secrets and then load them into two participating clusters.
 
-You can inspect the generated resources under the `./yaml` folder. The same script would create (but not load!!!) Redis Enterprise Active Active Database (REAADB) resource as `./yaml/crdb.yaml`
+You can inspect the generated resources under the `./yaml` folder. The same script would create (but not load!!!) Redis Enterprise Active Active Database (REAADB) resource as `./yaml/reaadb.yaml`
 
 ### 4. Create Redis Active Active Database
 
@@ -110,7 +110,7 @@ Assuming previos steps went well you should be able to successfully create the A
 
 ### Resources not fully provisioned
 
-`setup-haproxy.sh` might give errors such as `Error from server (NotFound): secrets "admission-tls" not found` - these are results of attempring to access resource that has not finished provisioning. Usually just restarting the bash script is enough to fix it.
+`setup-haproxy.sh` might give errors such as `Error from server (NotFound): secrets "admission-tls" not found` - these are results of attempting to access resource that has not finished provisioning. Usually just restarting the bash script is enough to fix it.
 
 ### Collecting logs
 
@@ -165,10 +165,10 @@ While it's possible to execute this test on your own laptop, it is recommended t
 To test access from the redis command line `redis-cli` use:
 ```
 # Canada Central
-redis-cli --tls -h crdb-anton-db.redis-canadacentral.sademo.umnikov.com -p 443  --insecure --sni crdb-anton-db.redis-canadacentral.sademo.umnikov.com
+redis-cli --tls -h crdb-anton-db.redis-canadacentral.demo.umnikov.com -p 443  --insecure --sni crdb-anton-db.redis-canadacentral.demo.umnikov.com
 
 # East US
-redis-cli --tls -h crdb-anton-db.redis-eastus.sademo.umnikov.com -p 443  --insecure --sni crdb-anton-db.redis-eastus.sademo.umnikov.com
+redis-cli --tls -h crdb-anton-db.redis-eastus.demo.umnikov.com -p 443  --insecure --sni crdb-anton-db.redis-eastus.demo.umnikov.com
 ```
 
 You can execute comands such as:

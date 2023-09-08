@@ -8,4 +8,3 @@ spec:
   apiFqdnUrl: api.redis-eastus.demo.umnikov.com
   dbFqdnSuffix: -db.redis-eastus.demo.umnikov.com
   secretName: redis-enterprise-redis-eastus
-

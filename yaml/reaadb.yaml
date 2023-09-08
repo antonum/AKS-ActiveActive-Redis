@@ -11,4 +11,3 @@ spec:
   participatingClusters:
       - name: redis-eastus
       - name: redis-canadacentral
-

@@ -9,14 +9,15 @@ items:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
         {"apiVersion":"app.redislabs.com/v1alpha1","kind":"RedisEnterpriseRemoteCluster","metadata":{"annotations":{},"name":"redis-canadacentral","namespace":"rec"},"spec":{"apiFqdnUrl":"api.redis-canadacentral.demo.umnikov.com","dbFqdnSuffix":"-db.redis-canadacentral.demo.umnikov.com","recName":"rec-redis-canadacentral","recNamespace":"rec","secretName":"redis-enterprise-redis-canadacentral"}}
-    creationTimestamp: "2023-08-21T15:42:24Z"
+      redis.io/last-in-use-spec: '{"recName":"rec-redis-canadacentral","recNamespace":"rec","apiFqdnUrl":"api.redis-canadacentral.demo.umnikov.com","dbFqdnSuffix":"-db.redis-canadacentral.demo.umnikov.com"}'
+    creationTimestamp: "2023-09-08T15:38:01Z"
     finalizers:
     - redis.io/rerc-finalizer
     generation: 1
     name: redis-canadacentral
     namespace: rec
-    resourceVersion: "15504"
-    uid: 40a7db76-1c8e-4235-9f7a-f14b282a409f
+    resourceVersion: "5969"
+    uid: 9121279d-8007-4532-b3ea-2811fb93f2dc
   spec:
     apiFqdnUrl: api.redis-canadacentral.demo.umnikov.com
     dbFqdnSuffix: -db.redis-canadacentral.demo.umnikov.com
@@ -34,14 +35,15 @@ items:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
         {"apiVersion":"app.redislabs.com/v1alpha1","kind":"RedisEnterpriseRemoteCluster","metadata":{"annotations":{},"name":"redis-eastus","namespace":"rec"},"spec":{"apiFqdnUrl":"api.redis-eastus.demo.umnikov.com","dbFqdnSuffix":"-db.redis-eastus.demo.umnikov.com","recName":"rec-redis-eastus","recNamespace":"rec","secretName":"redis-enterprise-redis-eastus"}}
-    creationTimestamp: "2023-08-21T15:42:24Z"
+      redis.io/last-in-use-spec: '{"recName":"rec-redis-eastus","recNamespace":"rec","apiFqdnUrl":"api.redis-eastus.demo.umnikov.com","dbFqdnSuffix":"-db.redis-eastus.demo.umnikov.com"}'
+    creationTimestamp: "2023-09-08T15:38:01Z"
     finalizers:
     - redis.io/rerc-finalizer
     generation: 1
     name: redis-eastus
     namespace: rec
-    resourceVersion: "15501"
-    uid: 88e1f6fc-1357-4bd8-9d97-20047fcae022
+    resourceVersion: "5968"
+    uid: 5ced1f62-f104-4273-ae2b-745873eb0abf
   spec:
     apiFqdnUrl: api.redis-eastus.demo.umnikov.com
     dbFqdnSuffix: -db.redis-eastus.demo.umnikov.com

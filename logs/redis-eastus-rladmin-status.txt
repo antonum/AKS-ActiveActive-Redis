@@ -1,12 +1,12 @@
 [1mCLUSTER NODES:[0m
 [1m[4mNODE:ID ROLE   ADDRESS     EXTERNAL_ADDRESS HOSTNAME           SHARDS CORES FREE_RAM        PROVISIONAL_RAM VERSION  STATUS[0m
-[36m*node:1 master 10.244.0.11 10.244.0.11      rec-redis-eastus-0 1/100  8     27.77GB/31.34GB 22.03GB/25.7GB  7.2.4-52 [32mOK[0m[36m    [0m
-[1m[36mnode:2  slave  10.244.1.4  10.244.1.4       rec-redis-eastus-1 1/100  8     28.21GB/31.34GB 22.47GB/25.7GB  7.2.4-52 [32mOK[0m[1m[36m    [0m
-[36mnode:3  slave  10.244.2.3  10.244.2.3       rec-redis-eastus-2 0/100  8     28.25GB/31.34GB 22.6GB/25.7GB   7.2.4-52 [32mOK[0m[36m    [0m
+[36m*node:1 master 10.244.2.2  10.244.2.2       rec-redis-eastus-0 1/100  8     27.88GB/31.34GB 22.15GB/25.7GB  7.2.4-52 [32mOK[0m[36m    [0m
+[1m[36mnode:2  slave  10.244.1.3  10.244.1.3       rec-redis-eastus-1 1/100  8     28.2GB/31.34GB  22.48GB/25.7GB  7.2.4-52 [32mOK[0m[1m[36m    [0m
+[36mnode:3  slave  10.244.0.12 10.244.0.12      rec-redis-eastus-2 0/100  8     27.75GB/31.34GB 22.11GB/25.7GB  7.2.4-52 [32mOK[0m[36m    [0m
 
 [1mDATABASES:[0m
 [1m[4mDB:ID NAME       TYPE  STATUS SHARDS PLACEMENT REPLICATION PERSISTENCE ENDPOINT                                                [0m
-[36mdb:1  crdb-anton redis active 1      dense     enabled     aof         redis-16926.rec-redis-eastus.rec.svc.cluster.local:16926[0m
+[36mdb:1  crdb-anton redis active 1      dense     enabled     disabled    redis-17814.rec-redis-eastus.rec.svc.cluster.local:17814[0m
 
 [1mENDPOINTS:[0m
 [1m[4mDB:ID        NAME             ID                  NODE      ROLE      SSL       [0m
@@ -14,5 +14,5 @@
 
 [1mSHARDS:[0m
 [1m[4mDB:ID       NAME         ID       NODE    ROLE    SLOTS    USED_MEMORY   STATUS [0m
-[36mdb:1        crdb-anton   redis:1  node:1  master  0-16383  3.38MB        [32mOK[0m[36m     [0m
-[1m[36mdb:1        crdb-anton   redis:2  node:2  slave   0-16383  3.58MB        [32mOK[0m[1m[36m     [0m
+[36mdb:1        crdb-anton   redis:1  node:1  master  0-16383  10.47MB       [32mOK[0m[36m     [0m
+[1m[36mdb:1        crdb-anton   redis:2  node:2  slave   0-16383  10.71MB       [32mOK[0m[1m[36m     [0m

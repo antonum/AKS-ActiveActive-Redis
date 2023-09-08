@@ -7,7 +7,7 @@ import json
 
 region="eastus"
 
-##region="canadacentral"
+##region="canadacentral" 
 
 config.load_kube_config(context=f"redis-{region}")
 

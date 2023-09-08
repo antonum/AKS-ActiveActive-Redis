@@ -1,0 +1,21 @@
+apiVersion: app.redislabs.com/v1
+kind: RedisEnterpriseCluster
+metadata:
+  name: rec-redis-eastus
+spec:
+  # Add fields here
+  ingressOrRouteSpec:
+    apiFqdnUrl: api.redis-eastus.demo.umnikov.com
+    dbFqdnSuffix: -db.redis-eastus.demo.umnikov.com
+    ingressAnnotations:
+      haproxy-ingress.github.io/ssl-passthrough: "true"
+      kubernetes.io/ingress.class: haproxy
+    method: ingress
+  nodes: 3
+  redisEnterpriseNodeResources:
+    limits:
+      cpu: 1000m
+      memory: 4Gi
+    requests:
+      cpu: 1000m
+      memory: 4Gi

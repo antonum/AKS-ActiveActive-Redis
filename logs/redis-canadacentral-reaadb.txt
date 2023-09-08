@@ -1,40 +1,47 @@
 NAME         STATUS   SPEC STATUS   LINKED REDBS   REPLICATION STATUS
-crdb-anton   active   Valid                        
+crdb-anton   active   Valid                        up
 Name:         crdb-anton
 Namespace:    rec
 Labels:       <none>
 Annotations:  redis.io/certs-latest: {}
               redis.io/certs-local: {}
               redis.io/last-reaadb:
-                {"participatingClusters":[{"name":"redis-eastus"},{"name":"redis-canadacentral"}],"globalConfigurations":{"memorySize":"200MB","shardCount...
-              redis.io/rerc-local: 15286
+                {"redisEnterpriseCluster":{"name":"rec-redis-canadacentral"},"participatingClusters":[{"name":"redis-eastus"},{"name":"redis-canadacentral...
+              redis.io/operator-created: true
+              redis.io/rerc-local: 3888
 API Version:  app.redislabs.com/v1alpha1
 Kind:         RedisEnterpriseActiveActiveDatabase
 Metadata:
-  Creation Timestamp:  2023-08-21T15:42:38Z
+  Creation Timestamp:  2023-09-08T15:46:18Z
   Finalizers:
     redis.io/reaadb-finalizer
   Generation:        1
-  Resource Version:  15422
-  UID:               070fecbc-33d9-4399-b0b5-60d6c6d2d8b2
+  Resource Version:  6323
+  UID:               fe7f69eb-17af-457c-9aca-7663a63bce74
 Spec:
   Global Configurations:
     Memory Size:  200MB
-    Persistence:  aofEverySecond
     Replication:  true
     Shard Count:  1
   Participating Clusters:
     Name:  redis-eastus
     Name:  redis-canadacentral
+  Redis Enterprise Cluster:
+    Name:  rec-redis-canadacentral
 Status:
-  GUID:           44cb1455-31ff-4ed2-819e-74b587a6be4b
-  Last Task UID:  d61bb733-e7e3-4b04-a874-7db2b10c740b
+  GUID:           dc32d63a-c0ba-4ac4-a5d4-3eb39c0a8695
+  Last Task UID:  00000000-0000-0000-0000-000000000000
   Participating Clusters:
-    Id:                      1
-    Name:                    redis-eastus
     Id:                      2
     Name:                    redis-canadacentral
+    Id:                      1
+    Name:                    redis-eastus
+    Replication Status:      up
   Redis Enterprise Cluster:  rec-redis-canadacentral
+  Replication Status:        up
   Spec Status:               Valid
   Status:                    active
-Events:                      <none>
+Events:
+  Type     Reason                      Age                 From                                                Message
+  ----     ------                      ----                ----                                                -------
+  Warning  MissingOrInvalidLinkedRERC  19m (x11 over 20m)  redis-enterprise-active-active-database-controller  The linked participating clusters (RERCs) is Invalid - Invalid participating cluster redis-eastus - the corresponding RERC status is Error, RERC spec status is: Valid.

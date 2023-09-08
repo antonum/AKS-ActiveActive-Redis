@@ -27,6 +27,9 @@ helm repo update
 az aks get-credentials -g $RESOURCE_GROUP  --name $CLUSTER1 --context $CLUSTER1 --overwrite-existing
 az aks get-credentials -g $RESOURCE_GROUP  --name $CLUSTER2 --context $CLUSTER2 --overwrite-existing
 
+# cleaning up ./yaml directory
+rm ./yaml/*.yaml
+
 for CLUSTER in $CLUSTER1 $CLUSTER2
 do
 
@@ -35,37 +38,21 @@ kubectl config use-context $CLUSTER
 kubectl create ns $NS
 
 # install ingress controller
-#kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.1/deploy/static/provider/cloud/deploy.yaml
-#kubectl apply -f haproxy.yaml
-#helm repo add haproxytech https://haproxytech.github.io/helm-charts
-#helm repo update
-#helm install haproxy-kubernetes-ingress haproxytech/kubernetes-ingress     --create-namespace     --namespace haproxy-controller     --set controller.service.type=LoadBalancer
-
 helm install haproxy-ingress haproxy-ingress/haproxy-ingress\
   --create-namespace --namespace ingress-controller\
   --version 0.14.4\
   -f templates/haproxy-ingress-values.yaml
 
-# Install Redis operator and configure Redis Enterprise Cluster
+# Install Redis operator 
 kubectl apply -n $NS -f https://raw.githubusercontent.com/RedisLabs/redis-enterprise-k8s-docs/master/bundle.yaml
-kubectl apply -n $NS -f - << EOF   
-apiVersion: app.redislabs.com/v1
-kind: RedisEnterpriseCluster
-metadata:
-  name: rec-$CLUSTER
-spec:
-  # Add fields here
-  nodes: 3
-  redisEnterpriseNodeResources:
-    limits:
-      cpu: 1000m
-      memory: 4Gi
-    requests:
-      cpu: 1000m
-      memory: 4Gi
-EOF
 
-#todo: need better "try while not avaliable logic here"
+# Create Redis Enterprise Cluster form template in templates folder
+sed "s/DNS_ZONE/$DNS_ZONE/g" templates/rec.yaml > tmp.yaml
+sed "s/CLUSTER/$CLUSTER/g" tmp.yaml > yaml/rec-$CLUSTER.yaml
+rm tmp.yaml
+kubectl apply -n $NS -f yaml/rec-$CLUSTER.yaml   
+
+# todo: need better "try while not avaliable logic here"
 echo "Waiting for REC and ingress service/public IP creation..."
 sleep 10
 
@@ -85,54 +72,10 @@ kubectl -n $NS get secret admission-tls
 CERT=`kubectl -n $NS get secret admission-tls -o jsonpath='{.data.cert}'`
 #cp templates/webhook.yaml webhook.yaml
 sed "s/NAMESPACE/$NS/g" templates/webhook.yaml > tmp.yaml
-sed "s/CERT/$CERT/g" tmp.yaml > webhook.yaml
+sed "s/CERT/$CERT/g" tmp.yaml > yaml/webhook-$CLUSTER.yaml
 rm tmp.yaml
-kubectl -n $NS apply -f webhook.yaml
+kubectl -n $NS apply -f yaml/webhook-$CLUSTER.yaml
 
-#kubectl -n $NS patch rec  rec-$CLUSTER --type merge --patch "{\"spec\": \
-#    {\"ingressOrRouteSpec\": \
-#      {\"apiFqdnUrl\": \"api.$CLUSTER.$DNS_ZONE\", \
-#      \"dbFqdnSuffix\": \"-db.$CLUSTER.$DNS_ZONE\", \
-#      \"ingressAnnotations\": {\"kubernetes.io/ingress.class\": \"nginx\", \
-#      \"nginx.ingress.kubernetes.io/backend-protocol\": \"HTTPS\", \
-#      \"nginx.ingress.kubernetes.io/ssl-passthrough\": \"true\"}, \
-#      \"method\": \"ingress\"}}}"
-
-#kubectl -n $NS patch rec  rec-$CLUSTER --type merge --patch "{\"spec\": \
-#    {\"activeActive\": \
-#      {\"apiIngressUrl\": \"api.$CLUSTER.$DNS_ZONE\", \
-#      \"dbIngressSuffix\": \"-db.$CLUSTER.$DNS_ZONE\", \
-#      \"ingressAnnotations\": {\"kubernetes.io/ingress.class\": \"nginx\", \
-#      \"nginx.ingress.kubernetes.io/backend-protocol\": \"HTTPS\", \
-#      \"nginx.ingress.kubernetes.io/ssl-passthrough\": \"true\"}, \
-#      \"method\": \"ingress\"}}}"
-
-# HAProxy crdb-cli
-#kubectl -n $NS patch rec  rec-$CLUSTER --type merge --patch "{\"spec\": \
-#    {\"activeActive\": \
-#      {\"apiIngressUrl\": \"api.$CLUSTER.$DNS_ZONE\", \
-#      \"dbIngressSuffix\": \"-db.$CLUSTER.$DNS_ZONE\", \
-#      \"ingressAnnotations\": {\"kubernetes.io/ingress.class\": \"haproxy\", \
-#      \"haproxy-ingress.github.io/ssl-passthrough\": \"true\"}, \
-#      \"method\": \"ingress\"}}}"
-
-# HAProxy RERC
-kubectl -n $NS patch rec  rec-$CLUSTER --type merge --patch "{\"spec\": \
-    {\"ingressOrRouteSpec\": \
-      {\"apiFqdnUrl\": \"api.$CLUSTER.$DNS_ZONE\", \
-      \"dbFqdnSuffix\": \"-db.$CLUSTER.$DNS_ZONE\", \
-      \"ingressAnnotations\": {\"kubernetes.io/ingress.class\": \"haproxy\", \
-      \"haproxy-ingress.github.io/ssl-passthrough\": \"true\"}, \
-      \"method\": \"ingress\"}}}"
-
-#activeActive:
-#  apiIngressUrl: <api-hostname>
-#  dbIngressSuffix: <ingress-suffix>
-#  ingressAnnotations:
-#     kubernetes.io/ingress.class: nginx
-#    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-#    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-#  method: ingress
 
 done
 

@@ -1,0 +1,21 @@
+apiVersion: app.redislabs.com/v1
+kind: RedisEnterpriseCluster
+metadata:
+  name: rec-CLUSTER
+spec:
+  # Add fields here
+  ingressOrRouteSpec:
+    apiFqdnUrl: api.CLUSTER.DNS_ZONE
+    dbFqdnSuffix: -db.CLUSTER.DNS_ZONE
+    ingressAnnotations:
+      haproxy-ingress.github.io/ssl-passthrough: "true"
+      kubernetes.io/ingress.class: haproxy
+    method: ingress
+  nodes: 3
+  redisEnterpriseNodeResources:
+    limits:
+      cpu: 1000m
+      memory: 4Gi
+    requests:
+      cpu: 1000m
+      memory: 4Gi

@@ -7,7 +7,7 @@ echo "Using configuration in config.sh:"
 cat config.sh
 
 # cleaning up ./yaml directory
-rm ./yaml/*.yaml
+#rm ./yaml/*.yaml
 
 for CLUSTER in $CLUSTER1 $CLUSTER2
 do
@@ -27,33 +27,20 @@ curl https://api.$CLUSTER.demo.umnikov.com:443/v1/cluster --insecure --connect-t
   -u "$REC_UNAME:$REC_PASSWORD" \
   | jq .name
 
-# create secret
-tee yaml/secret-$CLUSTER.yaml <<EOF
-apiVersion: v1
-kind: Secret
-metadata:
-  name: redis-enterprise-$CLUSTER
-type: Opaque
-data:
-  password: $B64_PASSWORD
-  username: $B64_USERNAME
+# create Redis Enterprise Remote Cluster Secret from template in templates folder
+sed "s/CLUSTER/$CLUSTER/g" templates/rerc-secret.yaml > tmp.yaml
+sed "s/B64_PASSWORD/$B64_PASSWORD/g" tmp.yaml > tmp1.yaml
+sed "s/B64_USERNAME/$B64_USERNAME/g" tmp1.yaml > yaml/secret-$CLUSTER.yaml
+rm tmp.yaml
+rm tmp1.yaml
 
-EOF
 
-# create Redis Enterprise Remote Cluster
-tee yaml/rerc-$CLUSTER.yaml <<EOF
-apiVersion: app.redislabs.com/v1alpha1
-kind: RedisEnterpriseRemoteCluster
-metadata:
-  name: $CLUSTER
-spec:
-  recName: rec-$CLUSTER
-  recNamespace: $NS
-  apiFqdnUrl: api.$CLUSTER.$DNS_ZONE
-  dbFqdnSuffix: -db.$CLUSTER.$DNS_ZONE
-  secretName: redis-enterprise-$CLUSTER
-
-EOF
+# create Redis Enterprise Remote Cluster template in templates folder
+sed "s/DNS_ZONE/$DNS_ZONE/g" templates/rerc.yaml > tmp.yaml
+sed "s/NAMESPACE/$NS/g" tmp.yaml > tmp1.yaml
+sed "s/CLUSTER/$CLUSTER/g" tmp1.yaml > yaml/rerc-$CLUSTER.yaml
+rm tmp.yaml
+rm tmp1.yaml
 
 done
 
@@ -63,26 +50,21 @@ for CLUSTER in $CLUSTER1 $CLUSTER2
 do
 echo "switching to $CLUSTER"
 kubectl config use-context $CLUSTER
-kubectl -n $NS apply -f ./yaml/
+kubectl -n $NS apply -f yaml/secret-$CLUSTER1.yaml
+kubectl -n $NS apply -f yaml/secret-$CLUSTER2.yaml
+kubectl -n $NS apply -f yaml/rerc-$CLUSTER1.yaml
+kubectl -n $NS apply -f yaml/rerc-$CLUSTER2.yaml
 done
 
-tee yaml/crdb.yaml <<EOF
-apiVersion: app.redislabs.com/v1alpha1
-kind: RedisEnterpriseActiveActiveDatabase
-metadata:
-  name: crdb-anton
-spec:
-  globalConfigurations:
-    #databaseSecretName: crdb-anton
-    memorySize: 200MB
-    shardCount: 1
-    replication: true
-  participatingClusters:
-      - name: $CLUSTER1
-      - name: $CLUSTER2
 
-EOF
+# create Redis Enterprise Remote Cluster template in templates folder
+sed "s/NAMESPACE/$NS/g" templates/reaadb.yaml > tmp.yaml
+sed "s/CLUSTER1/$CLUSTER1/g" tmp.yaml > tmp1.yaml
+sed "s/CLUSTER2/$CLUSTER2/g" tmp1.yaml > yaml/reaadb.yaml
+rm tmp.yaml
+rm tmp1.yaml
 
-echo "Active-Active database yaml is generated at: yaml/crdb.yaml"
+
+echo "Active-Active database yaml is generated at: yaml/reaadb.yaml"
 echo "to activate on any of the clusters run: "
-echo "kubectl apply -n $NS -f yaml/crdb.yaml"
+echo "kubectl apply -n $NS -f yaml/reaadb.yaml"

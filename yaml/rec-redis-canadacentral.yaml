@@ -1,0 +1,21 @@
+apiVersion: app.redislabs.com/v1
+kind: RedisEnterpriseCluster
+metadata:
+  name: rec-redis-canadacentral
+spec:
+  # Add fields here
+  ingressOrRouteSpec:
+    apiFqdnUrl: api.redis-canadacentral.demo.umnikov.com
+    dbFqdnSuffix: -db.redis-canadacentral.demo.umnikov.com
+    ingressAnnotations:
+      haproxy-ingress.github.io/ssl-passthrough: "true"
+      kubernetes.io/ingress.class: haproxy
+    method: ingress
+  nodes: 3
+  redisEnterpriseNodeResources:
+    limits:
+      cpu: 1000m
+      memory: 4Gi
+    requests:
+      cpu: 1000m
+      memory: 4Gi

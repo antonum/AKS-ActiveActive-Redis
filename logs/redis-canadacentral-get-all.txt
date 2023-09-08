@@ -1,25 +1,25 @@
 NAME                                                           READY   STATUS    RESTARTS   AGE
-pod/rec-redis-canadacentral-0                                  2/2     Running   0          28m
-pod/rec-redis-canadacentral-1                                  2/2     Running   0          27m
-pod/rec-redis-canadacentral-2                                  2/2     Running   0          25m
-pod/rec-redis-canadacentral-services-rigger-7f6844cd65-26fjk   1/1     Running   0          28m
-pod/redis-enterprise-operator-6668ccd8dc-rfwgd                 2/2     Running   0          28m
+pod/rec-redis-canadacentral-0                                  2/2     Running   0          36m
+pod/rec-redis-canadacentral-1                                  2/2     Running   0          35m
+pod/rec-redis-canadacentral-2                                  2/2     Running   0          32m
+pod/rec-redis-canadacentral-services-rigger-5ffb9cd957-t9mjs   1/1     Running   0          36m
+pod/redis-enterprise-operator-6668ccd8dc-nblzx                 2/2     Running   0          37m
 
 NAME                                   TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
-service/admission                      ClusterIP   10.0.132.62    <none>        443/TCP             28m
-service/crdb-anton                     ClusterIP   10.0.163.84    <none>        16926/TCP           14s
-service/crdb-anton-headless            ClusterIP   None           <none>        16926/TCP           14s
-service/rec-redis-canadacentral        ClusterIP   10.0.134.105   <none>        9443/TCP,8001/TCP   28m
-service/rec-redis-canadacentral-prom   ClusterIP   None           <none>        8070/TCP            28m
-service/rec-redis-canadacentral-ui     ClusterIP   10.0.11.218    <none>        8443/TCP            28m
+service/admission                      ClusterIP   10.0.34.85     <none>        443/TCP             37m
+service/crdb-anton                     ClusterIP   10.0.148.225   <none>        17814/TCP           22m
+service/crdb-anton-headless            ClusterIP   None           <none>        17814/TCP           22m
+service/rec-redis-canadacentral        ClusterIP   10.0.109.102   <none>        9443/TCP,8001/TCP   36m
+service/rec-redis-canadacentral-prom   ClusterIP   None           <none>        8070/TCP            36m
+service/rec-redis-canadacentral-ui     ClusterIP   10.0.59.191    <none>        8443/TCP            36m
 
 NAME                                                      READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/rec-redis-canadacentral-services-rigger   1/1     1            1           28m
-deployment.apps/redis-enterprise-operator                 1/1     1            1           28m
+deployment.apps/rec-redis-canadacentral-services-rigger   1/1     1            1           36m
+deployment.apps/redis-enterprise-operator                 1/1     1            1           37m
 
 NAME                                                                 DESIRED   CURRENT   READY   AGE
-replicaset.apps/rec-redis-canadacentral-services-rigger-7f6844cd65   1         1         1       28m
-replicaset.apps/redis-enterprise-operator-6668ccd8dc                 1         1         1       28m
+replicaset.apps/rec-redis-canadacentral-services-rigger-5ffb9cd957   1         1         1       36m
+replicaset.apps/redis-enterprise-operator-6668ccd8dc                 1         1         1       37m
 
 NAME                                       READY   AGE
-statefulset.apps/rec-redis-canadacentral   3/3     28m
+statefulset.apps/rec-redis-canadacentral   3/3     36m

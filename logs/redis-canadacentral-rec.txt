@@ -1,5 +1,5 @@
 NAMESPACE   NAME                      NODES   VERSION    STATE     SPEC STATUS   LICENSE STATE   SHARDS LIMIT   LICENSE EXPIRATION DATE   AGE
-rec         rec-redis-canadacentral   3       7.2.4-52   Running   Valid         Valid           4              2023-09-20T15:15:29Z      28m
+rec         rec-redis-canadacentral   3       7.2.4-52   Running   Valid         Valid           4              2023-10-08T15:32:58Z      37m
 apiVersion: v1
 items:
 - apiVersion: app.redislabs.com/v1
@@ -7,20 +7,20 @@ items:
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"app.redislabs.com/v1","kind":"RedisEnterpriseCluster","metadata":{"annotations":{},"name":"rec-redis-canadacentral","namespace":"rec"},"spec":{"nodes":3,"redisEnterpriseNodeResources":{"limits":{"cpu":"1000m","memory":"4Gi"},"requests":{"cpu":"1000m","memory":"4Gi"}}}}
+        {"apiVersion":"app.redislabs.com/v1","kind":"RedisEnterpriseCluster","metadata":{"annotations":{},"name":"rec-redis-canadacentral","namespace":"rec"},"spec":{"ingressOrRouteSpec":{"apiFqdnUrl":"api.redis-canadacentral.demo.umnikov.com","dbFqdnSuffix":"-db.redis-canadacentral.demo.umnikov.com","ingressAnnotations":{"haproxy-ingress.github.io/ssl-passthrough":"true","kubernetes.io/ingress.class":"haproxy"},"method":"ingress"},"nodes":3,"redisEnterpriseNodeResources":{"limits":{"cpu":"1000m","memory":"4Gi"},"requests":{"cpu":"1000m","memory":"4Gi"}}}}
       operator_version: 7.2.4-2
       redis.io/pvc_extra_labels: "null"
-    creationTimestamp: "2023-08-21T15:14:08Z"
+    creationTimestamp: "2023-09-08T15:31:16Z"
     finalizers:
     - redbfinalizer.redisenterpriseclusters.app.redislabs.com
     - stsfinalizer.redisenterprisecluster.app.redislabs.com
     - recpodfinalizer.redisenterprisecluster.app.redislabs.com
     - reaadbfinalizer.redisenterprisecluster.app.redislabs.com
-    generation: 11
+    generation: 8
     name: rec-redis-canadacentral
     namespace: rec
-    resourceVersion: "12528"
-    uid: 3926eddb-3ca4-416b-8226-e601ec2fde02
+    resourceVersion: "9532"
+    uid: d57b92f5-6da8-4c69-a3d2-a1484161eb9b
   spec:
     clusterCredentialSecretName: rec-redis-canadacentral
     clusterCredentialSecretRole: ""
@@ -76,8 +76,8 @@ items:
       version: 1.4.17
     ingressOrRouteMethodStatus: ingress
     licenseStatus:
-      activationDate: "2023-08-21T15:15:29Z"
-      expirationDate: "2023-09-20T15:15:29Z"
+      activationDate: "2023-09-08T15:32:58Z"
+      expirationDate: "2023-10-08T15:32:58Z"
       licenseState: Valid
       shardsLimit: 4
     managedAPIs:

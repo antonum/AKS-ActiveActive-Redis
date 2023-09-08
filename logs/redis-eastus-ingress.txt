@@ -1,6 +1,6 @@
 NAMESPACE   NAME               CLASS    HOSTS                                         ADDRESS   PORTS   AGE
-rec         crdb-anton         <none>   crdb-anton-db.redis-eastus.demo.umnikov.com             80      11s
-rec         rec-redis-eastus   <none>   api.redis-eastus.demo.umnikov.com                       80      28m
+rec         crdb-anton         <none>   crdb-anton-db.redis-eastus.demo.umnikov.com             80      22m
+rec         rec-redis-eastus   <none>   api.redis-eastus.demo.umnikov.com                       80      37m
 apiVersion: v1
 items:
 - apiVersion: networking.k8s.io/v1
@@ -9,7 +9,7 @@ items:
     annotations:
       haproxy-ingress.github.io/ssl-passthrough: "true"
       kubernetes.io/ingress.class: haproxy
-    creationTimestamp: "2023-08-21T15:42:44Z"
+    creationTimestamp: "2023-09-08T15:46:12Z"
     generation: 1
     labels:
       app: redis-enterprise
@@ -23,9 +23,9 @@ items:
       controller: true
       kind: RedisEnterpriseCluster
       name: rec-redis-eastus
-      uid: f6f6b81d-a93f-45c7-bc2c-e0e7c5702e61
-    resourceVersion: "15598"
-    uid: c43878f4-fcc0-45cd-a0ac-42678bbd3560
+      uid: aa34095d-73a0-4c69-b530-67027616162f
+    resourceVersion: "6096"
+    uid: e7e75118-b2a2-41f5-b0c3-9f9f37de6bb4
   spec:
     rules:
     - host: crdb-anton-db.redis-eastus.demo.umnikov.com
@@ -35,7 +35,7 @@ items:
             service:
               name: crdb-anton
               port:
-                number: 16926
+                number: 17814
           path: /
           pathType: ImplementationSpecific
   status:
@@ -48,7 +48,7 @@ items:
     annotations:
       haproxy-ingress.github.io/ssl-passthrough: "true"
       kubernetes.io/ingress.class: haproxy
-    creationTimestamp: "2023-08-21T15:14:02Z"
+    creationTimestamp: "2023-09-08T15:31:07Z"
     generation: 1
     labels:
       app: redis-enterprise
@@ -61,9 +61,9 @@ items:
       controller: true
       kind: RedisEnterpriseCluster
       name: rec-redis-eastus
-      uid: f6f6b81d-a93f-45c7-bc2c-e0e7c5702e61
-    resourceVersion: "8195"
-    uid: 9cbbd20e-07f5-465d-a827-d940d33b45f3
+      uid: aa34095d-73a0-4c69-b530-67027616162f
+    resourceVersion: "2079"
+    uid: e3f8966b-ed92-48e9-8840-c8b5d94c012e
   spec:
     rules:
     - host: api.redis-eastus.demo.umnikov.com

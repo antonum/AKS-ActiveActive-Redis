@@ -1,30 +1,41 @@
 NAME         STATUS   SPEC STATUS   LINKED REDBS   REPLICATION STATUS
-crdb-anton                                         
+crdb-anton   active   Valid                        up
 Name:         crdb-anton
 Namespace:    rec
 Labels:       <none>
-Annotations:  redis.io/last-reaadb:
-                {"redisEnterpriseCluster":{"name":"rec-redis-eastus"},"participatingClusters":[{"name":"redis-eastus"},{"name":"redis-canadacentral"}],"gl...
-              redis.io/operator-created: true
+Annotations:  redis.io/certs-latest: {}
+              redis.io/certs-local: {}
+              redis.io/last-reaadb:
+                {"participatingClusters":[{"name":"redis-eastus"},{"name":"redis-canadacentral"}],"globalConfigurations":{"memorySize":"200MB","shardCount...
+              redis.io/rerc-local: 3779
 API Version:  app.redislabs.com/v1alpha1
 Kind:         RedisEnterpriseActiveActiveDatabase
 Metadata:
-  Creation Timestamp:  2023-08-21T15:42:51Z
+  Creation Timestamp:  2023-09-08T15:46:04Z
   Finalizers:
     redis.io/reaadb-finalizer
   Generation:        1
-  Resource Version:  15625
-  UID:               5f6826c0-2b54-47ef-a7cc-cf805ea1daff
+  Resource Version:  6682
+  UID:               4bcce2a5-8e5a-40dc-8d1b-cfe2ed97667f
 Spec:
   Global Configurations:
     Memory Size:  200MB
-    Persistence:  aofEverySecond
     Replication:  true
     Shard Count:  1
   Participating Clusters:
     Name:  redis-eastus
     Name:  redis-canadacentral
-  Redis Enterprise Cluster:
-    Name:  rec-redis-eastus
 Status:
-Events:  <none>
+  GUID:           dc32d63a-c0ba-4ac4-a5d4-3eb39c0a8695
+  Last Task UID:  9f693f33-86e7-48bd-a927-8f4eb1440ad6
+  Participating Clusters:
+    Id:                      1
+    Name:                    redis-eastus
+    Id:                      2
+    Name:                    redis-canadacentral
+    Replication Status:      up
+  Redis Enterprise Cluster:  rec-redis-eastus
+  Replication Status:        up
+  Spec Status:               Valid
+  Status:                    active
+Events:                      <none>
